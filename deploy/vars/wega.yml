@@ -1,0 +1,5 @@
+wega_repo: https://github.com/mrkvost/wega.git
+wega_dir: /srv/www/wega
+wega_routes_prefix: ''
+database_dialect: 'pgsql'
+locale_lang: en_US.UTF-8
