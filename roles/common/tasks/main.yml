@@ -1,0 +1,59 @@
+---
+
+- name: Create group apache
+  group: name=apache state=present
+  tags: apache
+
+- name: Create user apache
+  user: name=apache home=/srv/www group=apache state=present
+  tags: apache
+
+- name: Install basic development utilities and tools
+  apt: name={{ item }} state=present
+  with_items:
+    - git
+    - vim
+    - screen
+    - python2.7
+    - python-virtualenv
+
+- name: Vim | copy vimrc
+  copy: src=vimrc
+        dest={{ item.path }}.vimrc
+        owner={{ item.user }}
+        group={{ item.user}}
+        mode=0644
+  with_items:
+    - {path: '/root/', user: 'root' }
+    - {path: '/srv/www/', user: 'apache' }
+
+- name: Git | Install git_env_askpass.py
+  copy: src=git_env_askpass.py
+        dest=/usr/local/bin/git_env_askpass.py
+        owner=root
+        group=root
+        mode=0775
+  tags: git
+
+- name: Git | Remember credentials
+  command: git config --global credential.helper "cache --timeout=7200"
+  tags: git
+
+- name: Locales | Ensure en_US locales exists
+  command: locale-gen {{ locale_lang }}
+  tags: locales
+
+- name: Locales | Update
+  command: update-locale
+           LC_ALL={{ locale_lang }}
+           LANG={{ locale_lang }}
+           LANGUAGE={{ locale_lang }}
+  tags: locales
+
+- name: Locales | Reconfigure
+  command: dpkg-reconfigure locales
+  environment:
+    LC_ALL: "{{ locale_lang }}"
+    LANG: "{{ locale_lang }}"
+    LANGUAGE: "{{ locale_lang }}"
+  tags: locales

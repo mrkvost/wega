@@ -1,0 +1,104 @@
+" detect the type of file
+filetype on
+
+" how many lines of history to remember
+set history=10000
+
+" load filetype plugins
+filetype plugin on
+
+" load filetype indent plugins
+filetype indent plugin on
+
+" syntax highlighting on
+syntax on
+
+" Number of screen lines to use for the command-line
+set cmdheight=1
+
+" command-line completion operates in an enhanced mode
+set wildmenu
+
+" Show the line and column number of the cursor position
+set ruler
+
+" do not redraw while running macros (much faster) (LazyRedraw)
+set lazyredraw
+
+" make backspace work normal (indent, eol, start)
+set backspace=2
+
+" use mouse everywhere
+set mouse=a
+
+" make the splitters between windows be blank
+set fillchars=vert:\ ,stl:\ ,stlnc:\
+
+" haluz...
+noremap x "_x
+
+" show matching brackets for a moment
+set showmatch
+
+" how many tenths of a second to blink matching brackets for
+set matchtime=5
+
+" Zvyrazni hladane vyrazy:
+set hlsearch
+" highlight as you type you search phrase
+set incsearch
+" ignore case sensitivity on search patterns
+set ignorecase
+
+
+" show chars on end of line, white spaces, tabs, etc
+set list
+
+" what to show when I hit :set list
+set listchars=
+set listchars+=tab:>-
+set listchars+=trail:-
+set listchars+=extends:>
+set listchars+=precedes:<
+
+" always show the status line
+set laststatus=2
+
+" take indent for new line from previous line
+set autoindent
+set copyindent
+
+" tab spacing (settings below are just to unify it)
+set expandtab
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+" Vzhlad tabulatora a koncovych medzier:
+set lcs=tab:>-,trail:-
+
+" do not wrap lines
+set nowrap
+
+" --------------- COLORS ---------------
+"Farebna schema + fonty
+set t_Co=256
+colorscheme desert
+set guifont=Monospace\ 9
+
+" vsetky komentare tmavosede
+highlight Comment ctermfg=DarkGrey term=none
+
+highlight pythonString ctermfg=Green
+highlight pythonRawString ctermfg=Green
+highlight pythonNumber ctermfg=Yellow
+highlight pythonInclude ctermfg=Magenta
+highlight pythonBuiltin ctermfg=Cyan
+
+let python_highlight_numbers = 1
+let python_highlight_exceptions = 1
+let python_highlight_space_errors = 1
+let python_highlight_builtin_objs = 1
+let python_highlight_string_formatting = 1
+
+set colorcolumn=80
+highlight ColorColumn ctermbg=Black

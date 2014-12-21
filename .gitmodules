@@ -1,0 +1,4 @@
+[submodule "postgresql"]
+	path = roles/postgresql
+	url = https://github.com/ANXS/postgresql.git
+	ignore = all

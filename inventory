@@ -1,0 +1,2 @@
+[development]
+mydevel ansible_ssh_host=178.62.89.238
