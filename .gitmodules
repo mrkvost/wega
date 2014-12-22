@@ -1,4 +1,3 @@
-[submodule "postgresql"]
-	path = roles/postgresql
+[submodule "deploy/roles/postgresql"]
+	path = deploy/roles/postgresql
 	url = https://github.com/ANXS/postgresql.git
-	ignore = all
