@@ -38,22 +38,3 @@
 - name: Git | Remember credentials
   command: git config --global credential.helper "cache --timeout=7200"
   tags: git
-
-- name: Locales | Ensure en_US locales exists
-  command: locale-gen {{ locale_lang }}
-  tags: locales
-
-- name: Locales | Update
-  command: update-locale
-           LC_ALL={{ locale_lang }}
-           LANG={{ locale_lang }}
-           LANGUAGE={{ locale_lang }}
-  tags: locales
-
-- name: Locales | Reconfigure
-  command: dpkg-reconfigure locales
-  environment:
-    LC_ALL: "{{ locale_lang }}"
-    LANG: "{{ locale_lang }}"
-    LANGUAGE: "{{ locale_lang }}"
-  tags: locales
