@@ -4,12 +4,13 @@ locale_lang: en_US.UTF-8
 project_name: wega
 project_repo: https://github.com/mrkvost/wega.git
 project_version: master
-project_sources_dir: '{{ apache_home }}/{{ project name }}'
+project_sources_dir: '{{ apache_home }}/{{ project_name }}'
 project_path: '{{ project_sources_dir }}/{{ project_version }}'
 project_routes_prefix: ''   # FIXME
 
 project_uwsgi_port: 3031    # FIXME
 project_uwsgi_processes: 2
+project_logs_dir: /var/log/wega
 
 exclude_relative_path: 'lib/python2.7/no-global-site-packages.txt'
 exclude_path_list: '{{ [project_sources_dir, "e", exclude_relative_path] }}'
