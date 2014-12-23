@@ -1,2 +1,4 @@
 *.swp
 *.swo
+settings.py
+deploy/vars/sensitive.yml

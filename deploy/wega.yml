@@ -3,21 +3,14 @@
 - hosts: development
   sudo_user: root
   sudo: yes
-  vars_files:
-    - vars/wega.yml
-  roles:
-    - common
-    - nginx
-    - locales
-    - postgresql
-
-- hosts: development
-  sudo: yes
-  sudo_user: apache
+  vars:
+    show_debug_info: true
   vars_files:
     - vars/wega.yml
     - vars/sensitive.yml
-  vars:
-    show_debug_info: true
   roles:
-    - wega
+    - common
+    - locales
+    - postgresql
+    - nginx
+    - supervisor

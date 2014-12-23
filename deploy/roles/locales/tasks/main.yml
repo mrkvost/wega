@@ -1,13 +1,15 @@
 - name: Ensure en_US locales exists
   command: locale-gen {{ locale_lang }}
-  tags: locales
+  tags:
+    - locales
 
 - name: Update
   command: update-locale
            LC_ALL={{ locale_lang }}
            LANG={{ locale_lang }}
            LANGUAGE={{ locale_lang }}
-  tags: locales
+  tags:
+    - locales
 
 - name: Reconfigure
   command: dpkg-reconfigure locales
@@ -15,4 +17,5 @@
     LC_ALL: "{{ locale_lang }}"
     LANG: "{{ locale_lang }}"
     LANGUAGE: "{{ locale_lang }}"
-  tags: locales
+  tags:
+    - locales

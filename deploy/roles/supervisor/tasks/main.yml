@@ -1,0 +1,23 @@
+---
+
+- name: Install
+  apt: name=supervisor state=installed
+  tags:
+    - supervisor
+
+- name: Create configuration directory
+  file: path=/etc/supervisord.d state=directory owner=root group=root
+        mode=02775
+  tags:
+    - supervisor
+
+- name: Configure
+  copy: src=supervisord.conf dest=/etc/supervisord.conf owner=root group=root
+        mode=0664
+  tags:
+    - supervisor
+
+- name: Start
+  service: name=supervisor state=started enabled=yes
+  tags:
+    - supervisor

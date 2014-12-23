@@ -1,12 +1,17 @@
 ---
 
+- name: Ensure ansible's apt_repository dependency is installed
+  apt: pkg=python-apt state=latest update_cache=true
+
 - name: Create group apache
   group: name=apache state=present
-  tags: apache
+  tags:
+    - apache
 
 - name: Create user apache
-  user: name=apache home=/srv/www group=apache state=present
-  tags: apache
+  user: name=apache home={{ apache_home }} group=apache state=present
+  tags:
+    - apache
 
 - name: Install basic development utilities and tools
   apt: name={{ item }} state=present
@@ -16,6 +21,9 @@
     - screen
     - python2.7
     - python-virtualenv
+    - npm
+  tags:
+    - packages
 
 - name: Vim | copy vimrc
   copy: src=vimrc
@@ -24,8 +32,8 @@
         group={{ item.user}}
         mode=0644
   with_items:
-    - {path: '/root/', user: 'root' }
-    - {path: '/srv/www/', user: 'apache' }
+    - {path: '/root', user: 'root' }
+    - {path: '{{ apache_home }}', user: 'apache' }
 
 - name: Git | Install git_env_askpass.py
   copy: src=git_env_askpass.py
@@ -33,8 +41,10 @@
         owner=root
         group=root
         mode=0775
-  tags: git
+  tags:
+    - git
 
 - name: Git | Remember credentials
   command: git config --global credential.helper "cache --timeout=7200"
-  tags: git
+  tags:
+    - git
