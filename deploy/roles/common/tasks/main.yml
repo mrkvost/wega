@@ -27,7 +27,7 @@
 
 - name: Vim | copy vimrc
   copy: src=vimrc
-        dest={{ item.path }}.vimrc
+        dest={{ item.path }}/.vimrc
         owner={{ item.user }}
         group={{ item.user}}
         mode=0644
