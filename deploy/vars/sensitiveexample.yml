@@ -8,3 +8,7 @@ db_sid:  FIXME
 
 gituser: FIXME
 gitpass: FIXME
+
+supervisor_inet_port: FIXME
+supervisor_inet_username: FIXME
+supervisor_inet_password: FIXME

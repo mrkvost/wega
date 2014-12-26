@@ -5,15 +5,15 @@
   tags:
     - supervisor
 
-- name: Create configuration directory
-  file: path=/etc/supervisord.d state=directory owner=root group=root
+- name: Create log directory
+  file: path=/var/log/supervisor state=directory owner=root group=root
         mode=02775
   tags:
     - supervisor
 
 - name: Configure
-  copy: src=supervisord.conf dest=/etc/supervisord.conf owner=root group=root
-        mode=0664
+  template: src=supervisord.conf.j2 dest=/etc/supervisord.conf owner=root
+        group=root mode=0664
   tags:
     - supervisor
 
