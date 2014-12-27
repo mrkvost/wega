@@ -2,7 +2,7 @@
 user=www-data
 group=www-data
 command=/usr/bin/uwsgi
-    --socket 127.0.0.1:8080
+    --http-socket 127.0.0.1:8080
     --master
     --processes 5
     --plugin python,http
@@ -13,7 +13,7 @@ command=/usr/bin/uwsgi
     --buffer-size 32768
     --post-buffering 1
     --virtualenv {{ project_sources_dir }}/e
-    --wsgi-file ={{ project_sources_dir }}/frontend/apache/wega.wsgi
+    --wsgi-file {{ project_sources_dir }}/frontend/apache/wega.wsgi
     --touch-reload {{ project_sources_dir }}/frontend/apache/wega.wsgi
 autostart=true
 autorestart=true
