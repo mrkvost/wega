@@ -1,0 +1,17 @@
+# email error section
+ADMINS = [
+{% for email in project_admin_emails %}
+    '{{ email }}'
+{% endfor %}
+]
+EMAIL_APPLICATION_ERRORS = {{ email_app_errors }}
+
+DEVEL_INSTANCE = {{ is_devel_instance }}
+
+SQLALCHEMY_BINDS = {
+    '{{ db_name }}': '{{ db_dial }}://{{ db_user }}:{{ db_pass }}@{{ db_host }}:{{ db_port }}/{{ db_sid }}',
+}
+
+# http://packages.python.org/flask-mail/#configuring-flask-mail
+MAIL_SERVER = '{{ email_host }}'
+MAIL_FROM = '{{ project_name }} <no-reply@{{ project_name }}.com>'

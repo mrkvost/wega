@@ -1,0 +1,108 @@
+- name: Configure project uwsgi in supervisor
+  template: src=uwsgi_wega.ini.j2
+            dest=/etc/supervisor/conf.d/uwsgi_wega.ini
+            owner=root group=root mode=0664
+  notify:
+    - update supervisor
+  tags:
+    - supervisor
+    - uwsgi
+    - frontend
+
+- name: Create log directory
+  file: path={{ project_logs_dir }} state=directory owner=www-data
+        group=adm mode=0755
+  tags:
+    - directories
+
+- name: Configure project in nginx
+  template: src=nginx-wega.j2
+            dest=/etc/nginx/sites-available/wega
+            owner=root group=root mode=0664
+  notify:
+    - reload nginx
+  tags:
+    - nginx
+    - frontend
+
+- name: Enable project configuration in nginx
+  file: src=/etc/nginx/sites-available/wega
+        dest=/etc/nginx/sites-enabled/wega
+        state=link
+  tags:
+    - nginx
+    - frontend
+
+- name: Create project sources directory
+  file: path={{ project_sources_dir }} state=directory owner=apache
+        group=apache mode=0775
+  tags:
+    - directories
+
+- name: Clone project repo
+  git:  dest={{ project_path }}
+        repo={{ project_repo }} version={{ project_version }}
+  environment:
+    GIT_AUTH: "{{ gituser }}:{{ gitpass }}"
+    GIT_ASKPASS: /usr/local/bin/git_env_askpass.py
+  sudo_user: apache
+  tags:
+    - sources
+
+- name: Create settings
+  template: src=settings.py.j2
+            dest={{ project_path }}/settings.py
+            owner=apache group=apache mode=0664
+  tags:
+    - settings
+
+- name: Create virtualenv
+  pip: virtualenv={{ project_sources_dir }}/e
+       virtualenv_command=virtualenv
+       name=pip
+       version=1.4.1
+  sudo_user: apache
+  tags:
+    - dependencies
+    - virtualenv
+
+- name: Fix virtualenv to include system-site packages
+  file: path={{ exclude_full_path }} state=absent
+  tags:
+    - dependencies
+    - virtualenv
+
+- name: Update virtualenv with project dependencies
+  pip: virtualenv={{ project_sources_dir }}/e
+       virtualenv_command=virtualenv
+       requirements={{ project_path }}/requirements.txt
+  sudo_user: apache
+  environment:
+    GIT_AUTH: "{{ gituser }}:{{ gitpass }}"
+    GIT_ASKPASS: /usr/local/bin/git_env_askpass.py
+  tags:
+    - dependencies
+    - virtualenv
+
+# - name: Generate version
+#   shell: "{{ project_sources_dir }}/e/bin/python generate_version.py"
+#          chdir={{ project_path }}
+#   tags:
+#     - generate_version
+
+- name: Create link to project
+  file: src={{ project_path }} dest={{ project_sources_dir }}/frontend
+        state=link
+  sudo_user: apache
+  tags:
+    - sources
+
+- name: Reload uwsgi workers
+  shell: touch {{ project_sources_dir }}/frontend/apache/wega.wsgi
+  tags:
+    - uwsgi
+
+- name: Reload nginx
+  service: name=nginx state=reloaded
+  tags:
+    - nginx

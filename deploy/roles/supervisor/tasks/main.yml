@@ -12,8 +12,8 @@
     - supervisor
 
 - name: Configure
-  template: src=supervisord.conf.j2 dest=/etc/supervisord.conf owner=root
-        group=root mode=0664
+  template: src=supervisord.conf.j2 dest=/etc/supervisor/supervisord.conf
+        owner=root group=root mode=0664
   tags:
     - supervisor
 

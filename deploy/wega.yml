@@ -14,3 +14,4 @@
     - postgresql
     - nginx
     - supervisor
+    - wega
