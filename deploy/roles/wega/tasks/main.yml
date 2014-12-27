@@ -105,7 +105,7 @@
     - logs
 
 - name: Create links to logs in logs directory
-  file: src={{ item.src }} dest={{ item.dest }} state=link
+  file: src={{ item.src }} dest={{ item.dest }} state=link force=yes
   with_items:
     - { src: '/var/log/uwsgi/wega.log',
         dest: '{{ project_path }}/logs/uwsgi.log' }
@@ -118,12 +118,17 @@
   tags:
     - logs
 
-- name: Reload uwsgi workers
-  shell: touch {{ project_sources_dir }}/frontend/apache/wega.wsgi
-  tags:
-    - uwsgi
+#- name: Reload uwsgi workers
+#  shell: touch {{ project_sources_dir }}/frontend/apache/wega.wsgi
+#  tags:
+#    - uwsgi
 
-- name: Reload nginx
-  service: name=nginx state=reloaded
+- name: Restart nginx
+  service: name=nginx state=restarted
   tags:
     - nginx
+
+- name: Restart supervisor
+  shell: supervisorctl reload
+  tags:
+    - supervisor
