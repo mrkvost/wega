@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1052.3622"
+   height="744.09448"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="gamatex_logo.svg"
+   inkscape:export-filename="/home/michal/Desktop/wega/Logo/gamatex_logo.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4">
+    <filter
+       inkscape:collect="always"
+       id="filter4588">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.11271666"
+         id="feGaussianBlur4590" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="1"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.80675647"
+     inkscape:cx="526.18109"
+     inkscape:cy="370.89284"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     width="1052.36px"
+     inkscape:snap-grids="true"
+     showguides="true"
+     inkscape:window-width="1366"
+     inkscape:window-height="744"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1"
+     inkscape:guide-bbox="true">
+    <inkscape:grid
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true"
+       type="xygrid"
+       id="grid3114" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-308.2677)">
+    <text
+       xml:space="preserve"
+       style="font-size:193.52954102px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:92.46409607px;word-spacing:0px;fill:#800000;fill-opacity:1;stroke:none;font-family:Verdana;-inkscape-font-specification:Verdana Bold"
+       x="265.93103"
+       y="845.52142"
+       id="text3116"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3118"
+         x="265.93103"
+         y="845.52142">tex</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:193.52954102px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#800000;fill-opacity:1;stroke:none;font-family:Verdana;-inkscape-font-specification:Verdana Bold"
+       x="153.58324"
+       y="637.10864"
+       id="text3110"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3112"
+         x="153.58324"
+         y="637.10864"
+         dx="0 115.84892">Gama</tspan></text>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3098"
+       style="fill:#800000;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Sans;font-style:normal;font-weight:normal;font-size:40px;line-height:125%;letter-spacing:0px;word-spacing:0px"><flowRegion
+         id="flowRegion3100"><rect
+           id="rect3102"
+           width="81.428574"
+           height="81.785713"
+           x="103.21429"
+           y="263.73734"
+           style="fill:#800000" /></flowRegion><flowPara
+         id="flowPara3104"></flowPara></flowRoot>    <path
+       style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#db8141;fill-opacity:1;stroke:#db8141;stroke-width:4.4000001;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:89.19999695;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;filter:url(#filter4588);enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans"
+       d="m 246.07068,577.35625 c 15.10781,-26.12596 28.97837,17.03987 31.57313,26.79017 -8.94778,9.43748 -16.95245,16.84984 -26.36256,27.6348 -7.50961,8.712 -10.02245,28.02011 15.9375,31.875 4.94695,0.51513 11.46937,0.10132 15.14544,-5.29615 3.69424,-5.42414 4.19719,-18.80358 3.37092,-25.4445 -0.57638,-6.02689 -2.46087,-14.61353 -5.41034,-26.9007 7.23447,-8.42075 10.26917,-14.03158 11.09192,-16.22233 3.29346,-8.76953 3.58123,-16.35964 3.186,-21.69041 -0.20776,-2.79355 -2.19061,-4.20867 -5.11243,-4.7692 -0.49167,6.32481 0.75876,13.51084 0.056,18.8843 -1.08454,7.93384 -6.5673,16.56688 -10.04626,20.49382 -4.04927,-12.87878 -6.48993,-22.89726 -14.25,-33.55483 -2.84133,-3.83106 -6.91769,-7.05631 -10.3601,-6.19568 -7.93824,1.74477 -14.723,10.91815 -8.81922,14.39571 z m 32.26081,29.4399 c 3.37272,13.95219 4.32577,20.54361 5.0625,29.05573 0.4929,15.64482 -0.13534,27.00091 -19.33284,25.17864 -18.97975,-2.1953 -17.10762,-19.34805 -11.1698,-27.24991 10.06968,-12.12365 16.0412,-18.61112 25.44014,-26.98446 z"
+       id="path3143"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccsccscccccccccccc"
+       transform="matrix(5.3758204,0,0,5.3758204,-1135.3565,-2657.7518)" />
+  </g>
+</svg>
