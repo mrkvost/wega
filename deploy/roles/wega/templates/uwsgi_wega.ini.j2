@@ -12,6 +12,7 @@ command=/usr/bin/uwsgi
     --max-requests 1000
     --buffer-size 32768
     --post-buffering 1
+    --py-autoreload 1
     --virtualenv {{ project_sources_dir }}/e
     --wsgi-file {{ project_sources_dir }}/frontend/apache/wega.wsgi
     --touch-reload {{ project_sources_dir }}/frontend/apache/wega.wsgi

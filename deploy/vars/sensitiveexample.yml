@@ -12,3 +12,6 @@ gitpass: FIXME
 supervisor_inet_port: FIXME
 supervisor_inet_username: FIXME
 supervisor_inet_password: FIXME
+
+#git_name_default: FIXME
+#git_email_default: FIXME

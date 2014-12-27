@@ -1,0 +1,11 @@
+[core]
+	editor = vim
+
+[credential]
+	helper = cache --timeout=7200
+{% if git_name_default and git_email_default %}
+
+[user]
+	name = {{ git_name_default }}
+	email = {{ git_email_default }}
+{% endif %}

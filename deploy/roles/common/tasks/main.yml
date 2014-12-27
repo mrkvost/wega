@@ -46,7 +46,9 @@
   tags:
     - git
 
-- name: Git | Remember credentials
-  command: git config --global credential.helper "cache --timeout=7200"
+- name: Git | Configure
+  template: src=gitconfig.j2
+            dest={{ apache_home }}/.gitconfig
+            owner=apache group=apache mode=0664
   tags:
     - git
