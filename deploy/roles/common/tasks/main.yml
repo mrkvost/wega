@@ -24,6 +24,8 @@
     - npm
     - uwsgi
     - uwsgi-plugin-python
+    - zip
+    - unzip
   tags:
     - packages
 
