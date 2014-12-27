@@ -97,6 +97,27 @@
   tags:
     - sources
 
+- name: Create logs directory
+  file: path={{ project_path }}/logs state=directory owner=apache
+        group=apache mode=0775
+  tags:
+    - directories
+    - logs
+
+- name: Create links to logs in logs directory
+  file: src={{ item.src }} dest={{ item.dest }} state=link
+  with_items:
+    - { src: '/var/log/uwsgi/wega.log',
+        dest: '{{ project_path }}/logs/uwsgi.log' }
+    - { src: '/var/log/supervisor/supervisord.log',
+        dest: '{{ project_path }}/logs/supervisord.log' }
+    - { src: '/var/log/nginx/access.log',
+        dest: '{{ project_path }}/logs/access.log' }
+    - { src: '/var/log/nginx/error.log',
+        dest: '{{ project_path }}/logs/error.log' }
+  tags:
+    - logs
+
 - name: Reload uwsgi workers
   shell: touch {{ project_sources_dir }}/frontend/apache/wega.wsgi
   tags:

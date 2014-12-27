@@ -2,3 +2,4 @@
 *.swo
 settings.py
 deploy/vars/sensitive.yml
+logs/*
