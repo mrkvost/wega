@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <title>Gamatex: {% block title %}{% endblock %}</title>
   {% block styles -%}
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" media="all">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}" media="all">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles-basic.css') }}" media="all">
   {%- endblock %}
   {%- block scripts %}
