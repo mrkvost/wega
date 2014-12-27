@@ -30,8 +30,8 @@
   tags:
     - nginx
 
-- name: Create log directory
-  file: path=/var/log/httpd/nginx state=directory owner=root group=root
+- name: Create log directory with proper rights
+  file: path=/var/log/nginx state=directory owner=www-data group=www-data
         mode=2755
   tags:
     - nginx
