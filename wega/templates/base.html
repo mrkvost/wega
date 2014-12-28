@@ -12,28 +12,28 @@
   {%- block scripts %}
   {% endblock -%}
 </head>
-<body id="{% block body_id %}{% endblock %}">
+<body id="{% block body_id %}g.body_id{% endblock %}">
 {% block navigation -%}
 <nav class="navbar">
   <div class="container-fluid">
     <div class="">
         <ul class="nav">
-          <li class="active">
+          <li class="{{ g.navigation['home'] }}">
             <a href="{{ url_for('base.home') }}">Home</a>
           </li>
-          <li>
+          <li class="{{ g.navigation['products'] }}">
             <a href="{{ url_for('products.index') }}">Products</a>
           </li>
-          <li>
+          <li class="{{ g.navigation['order'] }}">
             <a href="{{ url_for('order.index') }}">Order</a>
           </li>
-          <li>
+          <li class="{{ g.navigation['contact'] }}">
             <a href="{{ url_for('base.contact') }}">Contact</a>
           </li>
-          <li>
+          <li class="{{ g.navigation['about'] }}">
             <a href="{{ url_for('base.about') }}">About</a>
           </li>
-          <li>
+          <li class="{{ g.navigation['login'] }}">
             <a href="{{ url_for('base.login') }}">Log in</a>
           </li>
         </ul>

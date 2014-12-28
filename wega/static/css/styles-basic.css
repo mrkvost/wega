@@ -28,7 +28,8 @@ nav.navbar li.active a {
   font-weight: bold
 }
 
-nav.navbar div ul li>a:hover, li>a:focus {
+nav.navbar div ul li>a:hover,
+nav.navbar div ul li>a:focus {
   background-color: #DB8141;
   color: #800;
 }
