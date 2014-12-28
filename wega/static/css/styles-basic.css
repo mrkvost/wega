@@ -1,26 +1,75 @@
+/* ~~~ ~~ ~~ ~~ ~~ ~~  General  ~~ ~~ ~~ ~~ ~~ ~~~ */
 body {
   background-color: #000;
 }
 
+.no-padding {
+  padding: 0;
+}
+
+/* ~~~ ~~ ~~ ~~ ~~ ~~  Navigation  ~~ ~~ ~~ ~~ ~~ ~~~ */
 nav {
   border-bottom: double 3px #800;
   background-image: url("../../static/img/gamatex_logo.svg");
-  background-size: 80px 60px;
+  background-size: 80px 57px;
   background-repeat: no-repeat;
   border-bottom: 3px double #800000;
+  vertical-align: middle;
 }
 
-nav ul {
-  margin: 0;
-  list-style-type: none;
+nav div.container {
+  margin: auto;
 }
 
-nav li a {
+nav a {
   color: #db8141;
-  text-decoration: none;
   font-size: 18px;
 }
 
+nav li.active a {
+  color: #C00;
+  background-color: #000;
+  font-weight: bold
+}
+
+nav .container li>a:hover, li>a:focus {
+    background-color: #db8141;
+    color: #800;
+}
+
+.navbar {
+  margin-bottom: 0;
+}
+
+.navbar .nav,
+.navbar .nav > li {
+    float: none;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    vertical-align: middle;
+}
+
+.navbar-inner {
+    text-align: center;
+}
+
+@media (min-width: 481px) {
+  nav {
+    background-position: left center;
+    padding-left: 80px;
+    padding-right: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  nav {
+    background-position: center top;
+    padding-top: 57px;
+  }
+}
+
+/* ~~~ ~~ ~~ ~~ ~~ ~~  Content  ~~ ~~ ~~ ~~ ~~ ~~~ */
 .content {
   color: #888;
 }
