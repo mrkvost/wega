@@ -7,6 +7,10 @@ body {
   padding: 0;
 }
 
+.content {
+  color: #888;
+}
+
 /* ~~~ ~~ ~~ ~~ ~~ ~~  Navigation  ~~ ~~ ~~ ~~ ~~ ~~~ */
 nav.navbar {
   border-bottom: double 3px #800;
@@ -63,7 +67,17 @@ nav.navbar ul.nav > li {
   }
 }
 
-/* ~~~ ~~ ~~ ~~ ~~ ~~  Content  ~~ ~~ ~~ ~~ ~~ ~~~ */
-.content {
-  color: #888;
+/* ~~~ ~~ ~~ ~~ ~~ ~~  Home  ~~ ~~ ~~ ~~ ~~ ~~~ */
+#home #discount-text {
+  margin-top: 12px;
+  margin-bottom: 12px;
+  color: #FFF;
+  word-spacing: 5px;
+  text-align: center;
+  font-size: 24px;
+}
+
+#home #welcome-text {
+  text-indent: 30px;
+  text-align: justify;
 }
