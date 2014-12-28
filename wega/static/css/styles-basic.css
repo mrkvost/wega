@@ -11,7 +11,7 @@ body {
   color: #888;
 }
 
-/* ~~~ ~~ ~~ ~~ ~~ ~~  Navigation  ~~ ~~ ~~ ~~ ~~ ~~~ */
+/* ~~~ ~~ ~~ ~~ ~~ ~~  Navigation & Footer  ~~ ~~ ~~ ~~ ~~ ~~~ */
 nav.navbar {
   border-bottom: double 3px #800;
   background-image: url("../../static/img/gamatex_logo.svg");
@@ -38,16 +38,16 @@ nav.navbar div ul li>a:focus {
   color: #800;
 }
 
-nav.navbar {
-  margin-bottom: 0;
+.navbar {
+  margin: 0;
 }
 
-nav.navbar ul.nav {
+.navbar ul.nav {
   width: 100%;
   text-align: center;
 }
 
-nav.navbar ul.nav > li {
+.navbar ul.nav > li {
   float: none;
   display: inline-block;
 }
@@ -65,6 +65,43 @@ nav.navbar ul.nav > li {
     background-position: center top;
     padding-top: 57px;
   }
+}
+
+/* ~~~ ~~ ~~ ~~ ~~ ~~  Footer  ~~ ~~ ~~ ~~ ~~ ~~~ */
+html, body {
+  height: 100%;
+}
+
+#content-wrapper {
+  min-height: 100%;
+}
+
+#content-wrapper > main.content {
+  padding-bottom: 20px;
+}
+
+#page-footer {
+  position: relative;
+  margin-top: -20px;
+  height: 20px;
+  min-height: 20px;
+  clear: both;
+  padding: 0;
+}
+
+#page-footer .footer-content {
+  border-top: dashed 1px #800;
+  padding: 0;
+  color: #AAA;
+  font-size: 10px;
+}
+
+#page-footer ul {
+  word-spacing: 15px;
+}
+
+#page-footer li {
+  word-spacing: normal;
 }
 
 /* ~~~ ~~ ~~ ~~ ~~ ~~  Home  ~~ ~~ ~~ ~~ ~~ ~~~ */

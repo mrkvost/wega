@@ -13,35 +13,43 @@
   {% endblock -%}
 </head>
 <body id="{% block body_id %}g.body_id{% endblock %}">
-{% block navigation -%}
-<nav class="navbar">
-  <div class="container-fluid">
-    <div class="">
-        <ul class="nav">
-          <li class="{{ g.navigation['home'] }}">
-            <a href="{{ url_for('base.home') }}">Home</a>
-          </li>
-          <li class="{{ g.navigation['products'] }}">
-            <a href="{{ url_for('products.index') }}">Products</a>
-          </li>
-          <li class="{{ g.navigation['order'] }}">
-            <a href="{{ url_for('order.index') }}">Order</a>
-          </li>
-          <li class="{{ g.navigation['contact'] }}">
-            <a href="{{ url_for('base.contact') }}">Contact</a>
-          </li>
-          <li class="{{ g.navigation['about'] }}">
-            <a href="{{ url_for('base.about') }}">About</a>
-          </li>
-          <li class="{{ g.navigation['login'] }}">
-            <a href="{{ url_for('base.login') }}">Log in</a>
-          </li>
-        </ul>
+  <div id="content-wrapper">
+    <nav class="navbar">
+      <div class="container-fluid">
+        <div class="">
+          <ul class="nav">
+            <li class="{{ g.navigation['home'] }}">
+              <a href="{{ url_for('base.home') }}">Home</a>
+            </li>
+            <li class="{{ g.navigation['products'] }}">
+              <a href="{{ url_for('products.index') }}">Products</a>
+            </li>
+            <li class="{{ g.navigation['order'] }}">
+              <a href="{{ url_for('order.index') }}">Order</a>
+            </li>
+            <li class="{{ g.navigation['contact'] }}">
+              <a href="{{ url_for('base.contact') }}">Contact</a>
+            </li>
+            <li class="{{ g.navigation['about'] }}">
+              <a href="{{ url_for('base.about') }}">About</a>
+            </li>
+            <li class="{{ g.navigation['login'] }}">
+              <a href="{{ url_for('base.login') }}">Log in</a>
+            </li>
+          </ul>
+        <div>
+      <div>
+    </nav>
 
-    <div>
-  <div>
-</nav>
-{%- endblock %}
-<div class="content">{% block content %}{% endblock %}</div>
+    <main class="content">{% block content %}{% endblock %}</main>
+  </div>
+  <footer id="page-footer" class="navbar">
+    <div class="footer-content container-fluid">
+      <ul class="nav">
+        <li>created by: <strong>Michal&nbsp;Hoľa</strong></li>
+        <li>updated: <strong>29.12.2014</strong></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>
