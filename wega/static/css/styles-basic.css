@@ -8,7 +8,7 @@ body {
 }
 
 /* ~~~ ~~ ~~ ~~ ~~ ~~  Navigation  ~~ ~~ ~~ ~~ ~~ ~~~ */
-nav {
+nav.navbar {
   border-bottom: double 3px #800;
   background-image: url("../../static/img/gamatex_logo.svg");
   background-size: 80px 57px;
@@ -17,45 +17,38 @@ nav {
   vertical-align: middle;
 }
 
-nav div.container {
-  margin: auto;
-}
-
-nav a {
-  color: #db8141;
+nav.navbar a {
+  color: #DB8141;
   font-size: 18px;
 }
 
-nav li.active a {
+nav.navbar li.active a {
   color: #C00;
   background-color: #000;
   font-weight: bold
 }
 
-nav .container li>a:hover, li>a:focus {
-    background-color: #db8141;
-    color: #800;
+nav.navbar div ul li>a:hover, li>a:focus {
+  background-color: #DB8141;
+  color: #800;
 }
 
-.navbar {
+nav.navbar {
   margin-bottom: 0;
 }
 
-.navbar .nav,
-.navbar .nav > li {
-    float: none;
-    display: inline-block;
-    *display: inline;
-    *zoom: 1;
-    vertical-align: middle;
+nav.navbar ul.nav {
+  width: 100%;
+  text-align: center;
 }
 
-.navbar-inner {
-    text-align: center;
+nav.navbar ul.nav > li {
+  float: none;
+  display: inline-block;
 }
 
 @media (min-width: 481px) {
-  nav {
+  nav.navbar {
     background-position: left center;
     padding-left: 80px;
     padding-right: 80px;
@@ -63,7 +56,7 @@ nav .container li>a:hover, li>a:focus {
 }
 
 @media (max-width: 480px) {
-  nav {
+  nav.navbar {
     background-position: center top;
     padding-top: 57px;
   }
