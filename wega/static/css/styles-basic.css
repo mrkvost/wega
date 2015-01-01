@@ -10,44 +10,6 @@ body {
 .content {
   color: #888;
 }
-
-form {
-  background-color: #393939;
-  color: #000;
-}
-
-.form-field label {
-  width: 85px;
-  color: #F18E48;
-}
-
-.button, input {
-  line-height: 28px;
-  padding: 0 10px;
-}
-
-input {
-  outline: 0 none;
-  border: none;
-  -webkit-border-radius: 0px;
-  -moz-border-radius: 0px;
-  border-radius: 0px;
-}
-
-.button {
-  display: inline-block;
-  font-weight: 700;
-  text-transform: uppercase;
-  background-color: #E2E2E2;
-  border: none;
-  color: #000;
-}
-
-.button:hover,
-.button:focus {
-  background-color: #DB8141;
-}
-
 /* ~~~ ~~ ~~ ~~ ~~ ~~  Navigation & Footer  ~~ ~~ ~~ ~~ ~~ ~~~ */
 nav.navbar {
   border-bottom: double 3px #800;
@@ -221,28 +183,18 @@ html, body {
 }
 
 /* ~~~ ~~ ~~ ~~ ~~ ~~  Login  ~~ ~~ ~~ ~~ ~~ ~~~ */
+.loginform-container {
+  display: flex;
+  margin-top: 6.5%;
+}
+
 #login .loginform {
-  margin: auto;
-  width: 342.5px;
-  margin-top: 20px;
+  border: 1px solid #D87F40;
+  margin: 0 auto;
 }
 
-#login form {
-  padding: 15.5px 31.75px 5px 31.75px;
-}
-
-#login .form-field {
-  margin-bottom: 10px;
-}
-
-.form-caption-container {
-  display: inline-block;
-  height: 63px;
-  width: 342.5px;
-  background-color: #F18E48;
-  color: #393939;
-}
-
-.form-caption-container {
+#login .form-caption-container {
+  background-color: #D87F40;
+  color: #000;
   text-align: center;
 }
