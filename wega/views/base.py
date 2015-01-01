@@ -24,7 +24,7 @@ def about():
     return render_template('about.html')
 
 
-@base_app.route('/login')
+@base_app.route('/login', methods=['GET', 'POST'])
 @navigation(body_id='login')
 def login():
     return render_template('login.html')

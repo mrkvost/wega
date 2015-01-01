@@ -2,5 +2,23 @@
 {% block title %}Log in{% endblock %}
 {% block body_id %}login{% endblock %}
 {% block content %}
-  <h1>Login</h1>
+  <div class="loginform">
+    <div class="form-caption-container">
+      <h2>Sign in</h2>
+    </div>
+    <form method="post" autocomplete="on" action="{{ url_for('base.login') }}">
+      <div class="form-field">
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" tabindex="1"/>
+      </div>
+      <div class="form-field">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" tabindex="2"/>
+      </div>
+      <div class="form-field">
+        <label></label>
+        <button class="button submit" type="submit" tabindex="3">Submit</a>
+      </div>
+    </form>
+  </div>
 {% endblock %}
