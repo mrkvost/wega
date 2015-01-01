@@ -2,5 +2,29 @@
 {% block title %}Contact{% endblock %}
 {% block body_id %}contact{% endblock %}
 {% block content %}
-  <h1>Contact</h1>
+  <div class="envelope-container">
+    <img class="hidden-xs" src="{{ url_for('static', filename='img/envelope.svg') }}" alt="" />
+    <div class="envelope-content">
+      <div class="address-container">
+        <div class="address-element company-name">Gamatex s.r.o.</div>
+        <div class="address-element street">Special street</div>
+        <div class="address-element city">Banská Bystrica</div>
+        <div class="address-element zip-code">974 41</div>
+        <div class="address-element country">Slovakia</div>
+      </div>
+
+      <div class="email-and-tel">
+        <div class="email-container">
+          <label>email:</label>
+          <div class="email">info@info.info</div>
+        </div>
+
+        <div class="tel-container">
+          <label>:tel</label>
+          <div class="tel">+421&nbsp;912&nbsp;345&nbsp;678</div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
 {% endblock %}

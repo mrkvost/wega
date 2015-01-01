@@ -118,3 +118,67 @@ html, body {
   text-indent: 30px;
   text-align: justify;
 }
+
+/* ~~~ ~~ ~~ ~~ ~~ ~~  Contact  ~~ ~~ ~~ ~~ ~~ ~~~ */
+#contact .envelope-container {
+  position: relative;
+  margin: 20px auto 0 auto;
+  text-align: center;
+  font-size: 18px;
+  color: #FFF;
+}
+
+#contact img {
+  width: 100%;
+}
+
+#contact .address-container {
+  width: 100%;
+  text-align: center;
+}
+
+#contact .email-and-tel {
+  width: 100%;
+}
+
+#contact .email-container {
+}
+
+#contact .tel-container {
+}
+
+@media (min-width: 768px) {
+  #contact .envelope-container {
+    width: 66.67%;
+  }
+
+  #contact .address-container {
+    position: absolute;
+    top: 10%;
+  }
+
+  #contact .email-and-tel {
+    position: absolute;
+    bottom: 10%;
+  }
+
+  #contact .email-container {
+    float: left;
+    margin-left: 10%;
+  }
+
+  #contact .tel-container {
+    float: right;
+    margin-right: 10%;
+  }
+}
+
+@media (max-width: 767px) {
+  #contact .email-container {
+    margin-top: 15px;
+  }
+
+  #contact .tel-container {
+    margin-top: 15px;
+  }
+}
