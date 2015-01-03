@@ -13,3 +13,5 @@ SQLALCHEMY_BINDS = {
 # http://packages.python.org/flask-mail/#configuring-flask-mail
 MAIL_SERVER = FIXME     # FIXME
 MAIL_FROM = 'WEGA <no-reply@wega.com>'
+
+SECRET_KEY = FIXME

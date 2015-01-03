@@ -1,5 +1,6 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 
+from wega.forms import LoginForm
 from wega.utils import navigation
 
 
@@ -27,4 +28,8 @@ def about():
 @base_app.route('/login', methods=['GET', 'POST'])
 @navigation(body_id='login')
 def login():
-    return render_template('login.html')
+    form = LoginForm(formdata=request.form)
+    if form.validate_on_submit():
+        # TODO: redirect, login user and create session
+        return render_template('login.html', form=form)
+    return render_template('login.html', form=form)
