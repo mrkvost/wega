@@ -1,7 +1,73 @@
 {% extends "base.html" %}
 {% block title %}Products{% endblock %}
 {% block body_id %}products{% endblock %}
-{% block content %}
-  <h1>Products</h1>
+{% block scripts %}
+  {{ super() }}
+  <script>
+    $(document).ready(function() {
+        $('.description-wrapper p').ellipsis({
+            row: 2
+        });
+    });
+  </script>
 {% endblock %}
+{% block content %}
+<div class="container-fluid">
+<div class="row">
+  <div class="col-sm-6 col-md-4 product">
+    <div class="thumbnail">
+      <img data-src="holder.js/300x300/#333:#fff/text:missing image" src="{{ url_for('static', filename='img/coat_uno_300x300.png') }}" alt="Khaki Coat">
+      <div class="caption">
+        <h3>Khaki Coat</h3>
+        <div class="description-wrapper">
+          <p class="description">Italian fabric. Slim fit.
+             Main: 61% wool 28% polyester 6% acrylic 5% other fibres. Lining:
+             100% polyester.
+          </p>
+        </div>
+        <p><a href="#" class="btn btn-default" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-md-4 product">
+    <div class="thumbnail">
+      <img data-src="holder.js/300x300/#333:#fff/text:missing image" src="{{ url_for('static', filename='img/sako_duo_300x300.png') }}" alt="...">
+      <div class="caption">
+        <h3>Waistcoat jacket</h3>
+        <div class="description-wrapper">
+          <p class="description">Traditional herringbone jacket with two-button fastening, centre
+             vent, notch lapel, flap pockets, ticket pocket, under-collar
+             contrast fabric and removable cotton pocket hanky. Finished off with
+             a printed lining, complemented by a 100% cotton pocket square.
 
+             Dry clean only.
+             55% wool 45% polyester. Lining 100% polyester.
+             Maximum 99% wool is used in these products and a minimum of 50% wool.
+          </p>
+        </div>
+        <p><a href="#" class="btn btn-default" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-md-4 product">
+    <div class="thumbnail">
+      <img data-src="holder.js/300x300/#333:#fff/text:missing image" src="{{ url_for('static', filename='img/trojka_300x300.png') }}" alt="Man's coat">
+      <div class="caption">
+        <h3>Compact Nylon Jacket</h3>
+        <div class="description-wrapper">
+          <p class="description">Essential jacket, designed in high-shine compact nylon to give a
+             two-tone effect. Finished with black branded trim.
+
+             This jacket is designed in high-shine compact nylon to give a
+             two-tone effect. Finished with black branded trim.
+
+             Main, lining and wadding 100% polyester.
+          </p>
+        </div>
+        <p><a href="#" class="btn btn-default" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}

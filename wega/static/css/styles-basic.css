@@ -198,3 +198,30 @@ html, body {
   color: #000;
   text-align: center;
 }
+
+/* ~~~ ~~ ~~ ~~ ~~ ~~  Products  ~~ ~~ ~~ ~~ ~~ ~~~ */
+#products .thumbnail {
+  border: 1px solid #D87F40;
+  background-color: #000;
+}
+
+#products main.content {
+  padding-top: 15px;
+}
+
+#products main.content .product .description-wrapper {
+  min-height: 60px;
+}
+
+#products main.content .product .description {
+  color: #FFF;
+  text-align: justify;
+}
+
+#products main.content .product h3 {
+  color: #D87F40;
+}
+/* ~~~ ~~ ~~ ~~ ~~ ~~  About  ~~ ~~ ~~ ~~ ~~ ~~~ */
+#about p {
+  color: #FFF;
+}
