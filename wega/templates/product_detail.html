@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Products{% endblock %}
+{% block body_id %}products{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script>
+    $(document).ready(function() {
+        $('.btn.back').click(function(event) {
+            parent.history.back();
+            return false;
+        });
+    });
+  </script>
+{% endblock %}
+
+{% block content %}
+  <a href="#" class="btn btn-default back" role="button">Back</a>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="img col-sm-6 col-md-4 col-lg-3">
+        <h2>{{ product.name }}</h2>
+        <img data-src="{{ product.IMAGE_PLACEHOLDER_SMALL }}" src="{{ product.image_url }}" alt="{{ product.name }}">
+      </div>
+
+      <div class="sizes col-sm-3 col-md-2 col-lg-1">
+        <h3>Sizes</h3>
+        <ul class="size-list">
+          <li>XS</li>
+          <li>M</li>
+          <li>XXL</li>
+        </ul>
+      </div>
+
+      <div class="colors col-sm-3 col-md-2 col-lg-1">
+        <h3>Colors</h3>
+        <ul class="color-list">
+          <li>Green</li>
+          <li>Khaki</li>
+          <li>Red</li>
+        </ul>
+      </div>
+
+      <div class="clearfix visible-sm-block"></div>
+
+      <div class="composition col-sm-3 col-md-4 col-lg-2">
+        <h3>Composition</h3>
+        <ul class="composition-list">
+          <li>55% wool</li>
+          <li>45% polyester</li>
+        </ul>
+      </div>
+
+      <div class="clearfix visible-md-block"></div>
+
+      <div class="description col-sm-6 col-md-4 col-lg-3">
+        <h3>Description</h3>
+        <div class="desc">{{ product.description }}</div>
+      </div>
+
+      <div class="price col-sm-3 col-md-4 col-lg-2">
+        <h3>{{ product.price }}&nbsp;&euro;</h3>
+      </div>
+
+      <div class="clearfix visible-sm-block visible-lg-block"></div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,6 +1,6 @@
 import os.path
 
-from flask import Blueprint, render_template, url_for
+from flask import Blueprint, render_template, url_for, abort
 
 from wega.utils import set_active_navigation
 
@@ -15,12 +15,14 @@ def before_request():
 
 class Product(object):
     IMAGE_PATH = 'img/products'
+    IMAGE_PLACEHOLDER_SMALL = 'holder.js/300x300/#333:#fff/text:missing image'
 
     def __init__(self, **kwargs):
         self.id = kwargs.get('id')
         self.name = kwargs.get('name')
         self.description = kwargs.get('description')
         self.image_name = kwargs.get('image_name')
+        self.price = kwargs.get('price')
 
     @property
     def image_url(self):
@@ -43,7 +45,9 @@ PRODUCTS = [
             Lining: 100% polyester.
         ''',
         'image_name': 'coat_uno_300x300.png',
+        'price': 257.24,
     }),
+
     Product(**{
         'id': 2,
         'name': 'Waistcoat jacket',
@@ -59,7 +63,9 @@ PRODUCTS = [
             wool.
         ''',
         'image_name': 'sako_duo_300x300.png',
+        'price': 189.90,
     }),
+
     Product(**{
         'id': 3,
         'name': 'Compact Nylon Jacket',
@@ -73,7 +79,9 @@ PRODUCTS = [
             Main, lining and wadding 100% polyester.
         ''',
         'image_name': 'trojka_300x300.png',
+        'price': 298.70,
     }),
+
     Product(**{
         'id': 4,
         'name': 'Wadded Jacket',
@@ -83,7 +91,9 @@ PRODUCTS = [
             100% polyester.
         ''',
         'image_name': 'wadded_300x300.png',
+        'price': 152.00,
     }),
+
     Product(**{
         'id': 5,
         'name': 'Pea Coat',
@@ -100,7 +110,9 @@ PRODUCTS = [
             wool.
         ''',
         'image_name': 'pea_coat_300x300.png',
+        'price': 137.30,
     }),
+
     Product(**{
         'id': 6,
         'name': 'Single Breasted Mac',
@@ -114,13 +126,17 @@ PRODUCTS = [
             63% cotton 28% polyester 9% nylon. Lining 100% polyester.
         ''',
         'image_name': 'single_breasted_mac_300x300.png',
+        'price': 210.00,
     }),
+
     Product(**{
         'id': 7,
         'name': 'Tapue Covert Coat',
         'description': '''100% British wool.''',
         'image_name': 'tapue_covert_300x300.png',
+        'price': 215.15,
     }),
+
     Product(**{
         'id': 8,
         'name': 'Fleeced Lined Anorak',
@@ -131,6 +147,15 @@ PRODUCTS = [
             65% polyester 35% cotton. Upper lining 100% cotton. Sleeve and
             lower lining 100% polyester.''',
         'image_name': 'fleeced_anorak_300x300.png',
+        'price': 89.00,
+    }),
+
+    Product(**{
+        'id': 9,
+        'name': 'Coat',
+        'description': '',
+        'image_name': '',
+        'price': 19.99,
     }),
 ]
 
@@ -138,3 +163,14 @@ PRODUCTS = [
 def index():
     products = PRODUCTS
     return render_template('products.html', products=products)
+
+
+@products_app.route('/<int:product_id>')
+def product(product_id):
+    products = PRODUCTS
+    maximum = len(products)
+    if 1 > product_id or maximum < product_id:
+        abort(404)
+
+    product = products[product_id - 1]
+    return render_template('product_detail.html', product=product)

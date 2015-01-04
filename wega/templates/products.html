@@ -1,30 +1,44 @@
 {% extends "base.html" %}
 {% block title %}Products{% endblock %}
 {% block body_id %}products{% endblock %}
+
 {% block scripts %}
   {{ super() }}
   <script>
+    function open_product(product_id) {
+        window.location.href = "products/" + product_id;
+    }
+
     $(document).ready(function() {
         $('.description-wrapper p').ellipsis({
             row: 2
         });
+
+        $('.product').click(function(event) {
+            open_product($(this).data('id'));
+        });
+
+        $('.product').keypress(function(event) {
+            if (event.keyCode == 13) {
+                open_product($(this).data('id'));
+            }
+        });
     });
   </script>
 {% endblock %}
+
 {% block content %}
 <div class="container-fluid">
   <div class="row">
-    {% set image_placeholder = 'holder.js/300x300/#333:#fff/text:missing image' %}
     {% for product in products -%}
-      <div class="col-sm-6 col-md-4 product col-lg-3">
-        <div class="thumbnail">
-          <img data-src="{{ image_placeholder }}" src="{{ product.image_url }}" alt="{{ product.name }}">
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="thumbnail product" data-id="{{ product.id }}" tabindex="0">
+          <img data-src="{{ product.IMAGE_PLACEHOLDER_SMALL }}" src="{{ product.image_url }}" alt="{{ product.name }}">
           <div class="caption">
             <h3>{{ product.name }}</h3>
             <div class="description-wrapper">
               <p class="description">{{ product.description }}</p>
             </div>
-            <p><a href="#" class="btn btn-default" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
           </div>
         </div>
       </div>
