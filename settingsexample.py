@@ -6,9 +6,7 @@ EMAIL_APPLICATION_ERRORS = FIXME    # True or False
 
 DEVEL_INSTANCE = FIXME  # True of False
 
-SQLALCHEMY_BINDS = {
-    FIXME,  # e.g.'mydb': 'oracle://john:depp@123.456.7.89:123/dbSID1',
-}
+SQLALCHEMY_DATABASE_URI = FIXME   # 'dialect://user:password@host/dbname'
 
 # http://packages.python.org/flask-mail/#configuring-flask-mail
 MAIL_SERVER = FIXME     # FIXME

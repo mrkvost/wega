@@ -1,5 +1,6 @@
 *.swp
 *.swo
+*.pyc
 settings.py
 deploy/vars/sensitive.yml
 logs/*
