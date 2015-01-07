@@ -12,30 +12,26 @@
   {%- block scripts %}
   {% endblock -%}
 </head>
-<body id="{% block body_id %}g.body_id{% endblock %}">
+
+{% set active_page = active_page|default('') %}
+{% macro render_nav_item(endpoint, text) -%}
+<li{% if active_page == endpoint %} class='active'{% endif %}>
+  <a href="{{ url_for(endpoint) }}">{{ text }}</a>
+</li>
+{%- endmacro %}
+
+<body id="{% block body_id %}{% endblock %}">
   <div id="content-wrapper">
     <nav class="navbar">
       <div class="container-fluid">
         <div class="">
           <ul class="nav">
-            <li class="{{ g.navigation['home'] }}">
-              <a href="{{ url_for('base.home') }}">Home</a>
-            </li>
-            <li class="{{ g.navigation['products'] }}">
-              <a href="{{ url_for('products.index') }}">Products</a>
-            </li>
-            <li class="{{ g.navigation['order'] }}">
-              <a href="{{ url_for('order.index') }}">Order</a>
-            </li>
-            <li class="{{ g.navigation['contact'] }}">
-              <a href="{{ url_for('base.contact') }}">Contact</a>
-            </li>
-            <li class="{{ g.navigation['about'] }}">
-              <a href="{{ url_for('base.about') }}">About</a>
-            </li>
-            <li class="{{ g.navigation['login'] }}">
-              <a href="{{ url_for('base.login') }}">Log in</a>
-            </li>
+            {{ render_nav_item('base.home', 'Home') }}
+            {{ render_nav_item('products.index', 'Products') }}
+            {{ render_nav_item('order.index', 'Order') }}
+            {{ render_nav_item('base.contact', 'Contact') }}
+            {{ render_nav_item('base.about', 'About') }}
+            {{ render_nav_item('base.login', 'Log in') }}
           </ul>
         </div>
       </div>

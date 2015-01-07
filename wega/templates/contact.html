@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block title %}Contact{% endblock %}
 {% block body_id %}contact{% endblock %}
+{% set active_page = 'base.contact' %}
+
 {% block content %}
   <div class="envelope-container">
     <img class="hidden-xs" src="{{ url_for('static', filename='img/contact/envelope.svg') }}" alt="" />

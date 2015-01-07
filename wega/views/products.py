@@ -2,8 +2,6 @@ import os.path
 
 from flask import Blueprint, render_template, url_for
 
-from wega.utils import set_active_navigation
-
 from wega.db.core import db
 from wega.db.models import Product
 
@@ -18,11 +16,6 @@ def image_url(image_name):
 
 
 products_app = Blueprint('products', __name__)
-
-
-@products_app.before_request
-def before_request():
-    set_active_navigation('products')
 
 
 @products_app.context_processor

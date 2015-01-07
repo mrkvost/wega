@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block title %}About{% endblock %}
 {% block body_id %}about{% endblock %}
+{% set active_page = 'base.about' %}
+
 {% block content %}
   <h1>About</h1>
+  <br />
+  <a href="{{ url_for('webgl.index') }}">WebGL project</a>
 {% endblock %}
