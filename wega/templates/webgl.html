@@ -1,14 +1,17 @@
 {% extends "base.html" %}
 {% block title %}WebGL{% endblock %}
-{% block set_body_id %}{% set body_id = 'webgl' %}{% endblock %}
+{% block body_id %}webgl{% endblock %}
+{% set active_page = 'base.about' %}
 
 {% block scripts %}
   {{ super() }}
   <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-2.1.3.min.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/three.min.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/webgl.js') }}"></script>
 {% endblock %}
 {% block content %}
   <h1>WebGL</h1>
-  <div id="canvas-wrapper">
+  <div id="canvas-container">
     <canvas id="canvas"></canvas>
   </div>
 {% endblock %}

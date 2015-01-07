@@ -235,7 +235,24 @@ html, body {
 #products main.content .product h3 {
   color: #D87F40;
 }
+
 /* ~~~ ~~ ~~ ~~ ~~ ~~  About  ~~ ~~ ~~ ~~ ~~ ~~~ */
 #about p {
   color: #FFF;
+}
+
+/* ~~~ ~~ ~~ ~~ ~~ ~~  WebGL  ~~ ~~ ~~ ~~ ~~ ~~~ */
+#webgl h1 {
+  margin-left: 2.5%;
+}
+
+#webgl #canvas-container {
+  width: 95%;
+  margin: auto;
+  padding-bottom: 1%;
+}
+
+#webgl #canvas {
+  border: 4px solid #D87F40;
+  width: 100%;
 }
