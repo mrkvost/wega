@@ -8,6 +8,8 @@ Todo
  - Create www-data (or nginx user) in ansible with umask and home in deploy.
  - Add unittests, function tests, selenium tests.
  - Set properly `SQLALCHEMY_DATABASE_URI`
+ - Use require.js
+ - Use angular.js or backbone.js
 
 Sources
 =======
