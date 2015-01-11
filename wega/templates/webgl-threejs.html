@@ -6,6 +6,7 @@
 {% block scripts %}
   {{ super() }}
   <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-2.1.3.min.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/underscore-min.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='js/three.min.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='js/webgl-threejs.js') }}"></script>
 {% endblock %}

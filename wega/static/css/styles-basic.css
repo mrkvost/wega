@@ -250,14 +250,14 @@ html, body {
   width: 95%;
   margin: auto;
   padding-bottom: 1%;
+  border: 4px solid #D87F40;
 }
 
 #threejs #canvas {
-  border: 4px solid #D87F40;
   width: 100%;
 }
 
-/* ~~~ ~~ ~~ ~~ ~~ ~~  WebGL threejs  ~~ ~~ ~~ ~~ ~~ ~~~ */
+/* ~~~ ~~ ~~ ~~ ~~ ~~  WebGL x3dom  ~~ ~~ ~~ ~~ ~~ ~~~ */
 #x3dom h1 {
   margin-left: 2.5%;
 }
