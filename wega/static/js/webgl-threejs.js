@@ -30,23 +30,6 @@ function createCamera() {
     return camera;
 }
 
-function createCube(scene) {
-    var mapUrl = "../static/img/kamene.jpg"
-    var map = THREE.ImageUtils.loadTexture(mapUrl);
-
-    // Create a Phong material to SHOW SHADING
-    // var material = new THREE.MeshPhongMaterial({color: 0xD87F40});
-    var material = new THREE.MeshPhongMaterial({ map: map });
-
-    var geometry = new THREE.BoxGeometry(1, 1, 1);
-
-    // Put the geometry and material together into a mesh
-    cube = new THREE.Mesh(geometry, material);
-
-    scene.add(cube);
-    return cube;
-}
-
 function createAmbientLight(scene) {
     var lightColor = 0xaaAAaa;
     var ambientLight = new THREE.AmbientLight(lightColor);
@@ -58,7 +41,6 @@ function createAmbientLight(scene) {
 
 function createLight(scene) {
     var lightColor = 0x222222;
-    // var lightColor = 0x999999;
     var light = new THREE.DirectionalLight(lightColor, 1.0);
     light.position.set(0, 0, 1);
 
@@ -66,7 +48,7 @@ function createLight(scene) {
     return light;
 }
 
-function modelsManager(scene) {
+function App(scene, renderer, camera, raycaster) {
     // loads models and works with them...
     var _DEFAULTS = {
         position: {x: 0, y: 0, z: 0},
@@ -74,17 +56,24 @@ function modelsManager(scene) {
         scale: {x: 2.5, y: 2.5, z: 2.5},
         rotation: {x: 0, y: 0, z: 0},
         animates: false,
-        animate: function(mesh, manager) {},
-        onLoad: function(mesh, manager) {},
+        animate: function(mesh, app) {},
+        onLoad: function(mesh, app) {},
+        onClick: function(event, modelName, app) {
+            console.log(' ===> clicked:', modelName);
+        },
     }
 
-    return {
+    var app = {
         _scene: scene,
+        _renderer: renderer,
+        _camera: camera,
+        _raycaster: raycaster,
         _jsonLoader: new THREE.JSONLoader(),
+        _focused: [],
         models: {},
         meshes: function() {
             var meshes = [];
-            for (modelName in this.models) {
+            for (var modelName in this.models) {
                 meshes.push(this.mesh(modelName));
             }
             return meshes;
@@ -93,7 +82,6 @@ function modelsManager(scene) {
         load: function(url, modelName, initial) {
             var that = this;
             var initial = _.defaults({}, initial, _DEFAULTS);
-            // console.log('initial', initial);
 
             var addModelToScene = function(geometry, materials) {
                 var material = new THREE.MeshFaceMaterial(materials);
@@ -114,19 +102,19 @@ function modelsManager(scene) {
                     initial.rotation.y,
                     initial.rotation.z
                 );
+                mesh.name = modelName;
 
                 that._scene.add(mesh);
-                that.models[modelName] = {
+                var model = {
+                    modelName: modelName,
                     mesh: mesh,
                     animates: initial.animates,
                     animate: initial.animate,
-                    colors: [],
-                    ambients: [],
+                    onClick: initial.onClick,
                 }
 
-                that.models
-
                 initial.onLoad(mesh, that);
+                that.models[modelName] = model;
             }
 
             this._jsonLoader.load(url, addModelToScene);
@@ -134,27 +122,56 @@ function modelsManager(scene) {
 
         get: function(modelName) {
             // returns whole model info
-            if (this.models[modelName]) {
-                return this.models[modelName];
+            var model = this.models[modelName];
+            if (model) {
+                return model;
             }
         },
 
         mesh: function(modelName) {
             // returns mesh object
-            if (this.models[modelName]) {
-                return this.models[modelName].mesh;
+            var model = this.get(modelName);
+            if (model) {
+                return model.mesh;
             }
         },
 
         animate: function() {
-            for (modelName in this.models) {
+            for (var modelName in this.models) {
                 // console.log('modelName:', modelName, 'animates:', this.get(modelName).animates);
-                if (this.get(modelName).animates) {
-                    this.get(modelName).animate(this.mesh(modelName), this);
+                var model = this.get(modelName);
+                if (model.animates) {
+                    model.animate(model.mesh, this);
                 }
             }
-        },
+        }
     };
+
+    app.onClick = function(event) {
+        event.preventDefault();
+
+        var clickPosition = relativeMousePosition(event);
+        var x = 2 * clickPosition.x / renderer.domElement.width - 1;
+        var y = -2 * clickPosition.y / renderer.domElement.height + 1;
+        var vector = new THREE.Vector3();
+        vector.set(x, y, 0.5);
+
+        vector.unproject(app._camera);
+
+        app._raycaster.ray.set(
+            camera.position, vector.sub(camera.position).normalize());
+
+        var intersects = app._raycaster.intersectObjects(app.meshes());
+
+        if (intersects.length > 0) {
+            var modelName = intersects[0].object.name;
+            app.get(intersects[0].object.name).onClick(event, modelName, app);
+        }
+    };
+
+    $(renderer.domElement).on('click', app.onClick);
+
+    return app;
 }
 
 $(document).ready(function() {
@@ -162,76 +179,29 @@ $(document).ready(function() {
     var scene = new THREE.Scene();
     var camera = createCamera();
     var raycaster = new THREE.Raycaster();
-    // var cube = createCube(scene);
     createAmbientLight(scene);
     createLight(scene);
 
-    var manager = modelsManager(scene);
-    manager.load(
+    var app = App(scene, renderer, camera, raycaster);
+    app.load(
         '../static/models/v1.json',
         'hanger',
         {position: {x: 3, y: 1, z: 0}}
     );
-    manager.load(
+    app.load(
         '../static/models/v1.json',
         'hanger2',
         {
             position: {x: -3, y: 0, z: 0},
             rotation: {x: 0, y: 1.5707963, z: 0},
             animates: true,
-            animate: function(mesh, manager) {
+            animate: function(mesh, app) {
                 mesh.rotation.x += 0.03;
                 mesh.rotation.y += 0.02;
                 mesh.rotation.z += 0.01;
             },
-            onLoad: function(mesh, manager) {
-                
-            },
         }
     );
-
-    $(renderer.domElement).on('click', function(event) {
-        // console.log('event', event);
-
-        event.preventDefault();
-
-        var clickPosition = relativeMousePosition(event);
-        var x = 2 * clickPosition.x / renderer.domElement.width - 1;
-        var y = -2 * clickPosition.y / renderer.domElement.height + 1;
-        // console.log('click position', clickPosition);
-        // console.log('counted ... x:', x, 'y:', y);
-        // console.log('canvas width:', renderer.domElement.width)
-        // console.log('canvas width:', $('#canvas').width());
-
-        var vector = new THREE.Vector3();
-        vector.set(x, y, 0.5);
-
-        vector.unproject(camera);
-
-        raycaster.ray.set(
-            camera.position, vector.sub(camera.position).normalize());
-
-        var intersects = raycaster.intersectObjects(manager.meshes());
-        // console.log(manager.objects());
-
-        if (intersects.length > 0) {
-            console.log('... INTERSECTED ...');
-            console.log('object:', intersects[0].object);
-            console.log('material:', intersects[0].object.material);
-
-            for (n in intersects[0].object.material.materials) {
-                var material = intersects[0].object.material.materials[n];
-                // console.log(material);
-                material.ambient.setHex(
-                    Math.random() * 0xffffff
-                );
-                material.color.setHex(
-                    Math.random() * 0xffffff
-                );
-            }
-
-        }
-    });
 
     function render() {
         // TODO: ensure requestAnimationFrame exists:
@@ -240,11 +210,7 @@ $(document).ready(function() {
         // https://gist.github.com/paulirish/1579671
         requestAnimationFrame(render);
 
-        // cube.rotation.x += 0.03;
-        // cube.rotation.y += 0.02;
-        // cube.rotation.z += 0.01;
-
-        manager.animate();
+        app.animate();
 
         renderer.render(scene, camera);
     }
