@@ -49,28 +49,40 @@ function createLight(scene) {
 }
 
 function hangerAnimate(model, app) {
-    model.mesh.rotation.z = Math.sin(app.delta*app.tick);
-    model.mesh.position.x += Math.sin(Math.PI/2 + app.delta*app.tick) / 16.2;
-    model.mesh.position.y -= Math.cos(Math.PI/2 + 2*app.delta*app.tick) / 32.4;
+    var fps = 35;
+    var T = 2 * fps;
+    var l = 0.22;
+    var omega = 2 * Math.PI / T;    // Math.sqrt(g/l) / 100;
+
+    var ym = l * Math.sqrt(2) / 2;  // it's the same as xm...
+    model.mesh.position.y += ym * Math.sin(app.tick * omega);
+    model.mesh.position.x += ym * Math.sin(0.5*app.tick * omega + Math.PI/2);
+    model.mesh.rotation.z = Math.sin(0.5 * app.tick * omega);
 }
 
 function App() {
     var _DEFAULTS = {
         position: {x: 0, y: 0, z: 0},
-        // scale: {x: 1, y: 1, z: 1},
-        scale: {x: 2.5, y: 2.5, z: 2.5},
+        scale: {x: 1, y: 1, z: 1},
+        // scale: {x: 2.5, y: 2.5, z: 2.5},
         rotation: {x: 0, y: 0, z: 0},
         animates: false,
         animate: function(model, app) {},
         onLoad: function(mesh, app) {},
+        onMove: function(event, modelName, app) {
+            // console.log(' ===> moved:', modelName);
+            var model = app.get(modelName);
+            model.animates = true;
+            // hangerAnimate(app.get(modelName), app);
+
+        },
         onClick: function(event, modelName, app) {
-            console.log(' ===> clicked:', modelName);
+            // console.log(' ===> clicked:', modelName);
         },
     }
 
     var app = {
         tick: 0,
-        delta: (Math.PI * 2 / 360),
         scene: new THREE.Scene(),
         renderer: createRenderer(),
         camera: createCamera(),
@@ -117,6 +129,7 @@ function App() {
                     animates: initial.animates,
                     animate: initial.animate,
                     onClick: initial.onClick,
+                    onMove: initial.onMove,
                 }
 
                 initial.onLoad(mesh, that);
@@ -144,7 +157,6 @@ function App() {
 
         animate: function() {
             for (var modelName in this.models) {
-                // console.log('modelName:', modelName, 'animates:', this.get(modelName).animates);
                 var model = this.get(modelName);
                 if (model.animates) {
                     model.animate(model, this);
@@ -153,12 +165,12 @@ function App() {
             ++this.tick;
         },
 
-        onClick: function(event) {
+        onMouseEvent: function(event) {
             event.preventDefault();
 
-            var clickPosition = relativeMousePosition(event);
-            var x = 2 * clickPosition.x / app.renderer.domElement.width - 1;
-            var y = -2 * clickPosition.y / app.renderer.domElement.height + 1;
+            var mousePosition = relativeMousePosition(event);
+            var x = 2 * mousePosition.x / app.renderer.domElement.width - 1;
+            var y = -2 * mousePosition.y / app.renderer.domElement.height + 1;
             var vector = new THREE.Vector3();
             vector.set(x, y, 0.5);
 
@@ -173,7 +185,14 @@ function App() {
 
             if (intersects.length > 0) {
                 var modelName = intersects[0].object.name;
-                app.get(intersects[0].object.name).onClick(event, modelName, app);
+                var model = app.get(intersects[0].object.name);
+                console.log(modelName);
+                if (event.type == 'mousemove') {
+                    model.onMove(event, modelName, app);
+                }
+                else if (event.type == 'click') {
+                    model.onClick(event, modelName, app);
+                }
             }
         },
 
@@ -182,7 +201,8 @@ function App() {
         },
     };
 
-    $(app.renderer.domElement).on('click', app.onClick);
+    $(app.renderer.domElement).on('click', app.onMouseEvent);
+    $(app.renderer.domElement).on('mousemove', app.onMouseEvent);
 
     app.light = createLight(app.scene);
     app.ambientLight = createAmbientLight(app.scene);
@@ -205,27 +225,18 @@ function App() {
 $(document).ready(function() {
     var app = App();
 
-    app.load(
-        '../static/models/v1.json',
-        'hanger',
-        {
-            position: {x: 3, y: 1, z: 0},
-            animates: true,
-            animate: hangerAnimate,
-        }
-    );
-
-    app.load(
-        '../static/models/v2.json',
-        'hanger2',
-        {
-            position: {x: -5, y: 0, z: -10},
-            rotation: {x: 0, y: 0, z: 0},
-            scale: {x: 1, y: 1, z: 1},
-            animates: true,
-            animate: hangerAnimate,
-        }
-    );
+    for (var i = 0; i < 10; i++) {
+        app.load(
+            '../static/models/v2.json',
+            'hanger' + i,
+            {
+                position: {x: -7+i, y: -4+i, z: -9-i},
+                rotation: {x: 0, y: 0, z: 0},
+                scale: {x: 1, y: 1, z: 1},
+                animate: hangerAnimate,
+            }
+        );
+    }
 
     app.run();
 });
