@@ -246,6 +246,10 @@ html, body {
   margin-left: 2.5%;
 }
 
+#threejs p {
+  margin-left: 2.5%;
+}
+
 #threejs #canvas-container {
   width: 95%;
   margin: auto;
