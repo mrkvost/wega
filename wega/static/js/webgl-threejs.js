@@ -48,6 +48,12 @@ function createLight(scene) {
     return light;
 }
 
+function hangerAnimate(mesh, app) {
+    mesh.rotation.x += 0.03;
+    mesh.rotation.y += 0.02;
+    mesh.rotation.z += 0.01;
+}
+
 function App() {
     var _DEFAULTS = {
         position: {x: 0, y: 0, z: 0},
@@ -185,10 +191,9 @@ function App() {
         // http://creativejs.com/resources/requestanimationframe/
         // https://gist.github.com/paulirish/1579671
         requestAnimationFrame(render);
+        app.renderer.render(app.scene, app.camera);
 
         app.animate();
-
-        app.renderer.render(app.scene, app.camera);
     };
 
     return app;
@@ -200,21 +205,22 @@ $(document).ready(function() {
     app.load(
         '../static/models/v1.json',
         'hanger',
-        {position: {x: 3, y: 1, z: 0}}
+        {
+            position: {x: 3, y: 1, z: 0},
+            animates: true,
+            animate: hangerAnimate,
+        }
     );
 
     app.load(
-        '../static/models/v1.json',
+        '../static/models/v2.json',
         'hanger2',
         {
-            position: {x: -3, y: 0, z: 0},
-            rotation: {x: 0, y: 1.5707963, z: 0},
+            position: {x: -5, y: 0, z: -10},
+            rotation: {x: 0, y: 0, z: 0},
+            scale: {x: 1, y: 1, z: 1},
             animates: true,
-            animate: function(mesh, app) {
-                mesh.rotation.x += 0.03;
-                mesh.rotation.y += 0.02;
-                mesh.rotation.z += 0.01;
-            },
+            animate: hangerAnimate,
         }
     );
 
