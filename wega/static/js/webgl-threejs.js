@@ -48,10 +48,10 @@ function createLight(scene) {
     return light;
 }
 
-function hangerAnimate(mesh, app) {
-    mesh.rotation.x += 0.03;
-    mesh.rotation.y += 0.02;
-    mesh.rotation.z += 0.01;
+function hangerAnimate(model, app) {
+    model.mesh.rotation.z = Math.sin(app.delta*app.tick);
+    model.mesh.position.x += Math.sin(Math.PI/2 + app.delta*app.tick) / 16.2;
+    model.mesh.position.y -= Math.cos(Math.PI/2 + 2*app.delta*app.tick) / 32.4;
 }
 
 function App() {
@@ -61,7 +61,7 @@ function App() {
         scale: {x: 2.5, y: 2.5, z: 2.5},
         rotation: {x: 0, y: 0, z: 0},
         animates: false,
-        animate: function(mesh, app) {},
+        animate: function(model, app) {},
         onLoad: function(mesh, app) {},
         onClick: function(event, modelName, app) {
             console.log(' ===> clicked:', modelName);
@@ -69,6 +69,8 @@ function App() {
     }
 
     var app = {
+        tick: 0,
+        delta: (Math.PI * 2 / 360),
         scene: new THREE.Scene(),
         renderer: createRenderer(),
         camera: createCamera(),
@@ -145,9 +147,10 @@ function App() {
                 // console.log('modelName:', modelName, 'animates:', this.get(modelName).animates);
                 var model = this.get(modelName);
                 if (model.animates) {
-                    model.animate(model.mesh, this);
+                    model.animate(model, this);
                 }
             }
+            ++this.tick;
         },
 
         onClick: function(event) {
