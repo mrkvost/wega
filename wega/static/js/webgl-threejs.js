@@ -48,8 +48,7 @@ function createLight(scene) {
     return light;
 }
 
-function App(scene, renderer, camera, raycaster) {
-    // loads models and works with them...
+function App() {
     var _DEFAULTS = {
         position: {x: 0, y: 0, z: 0},
         // scale: {x: 1, y: 1, z: 1},
@@ -64,12 +63,11 @@ function App(scene, renderer, camera, raycaster) {
     }
 
     var app = {
-        _scene: scene,
-        _renderer: renderer,
-        _camera: camera,
-        _raycaster: raycaster,
-        _jsonLoader: new THREE.JSONLoader(),
-        _focused: [],
+        scene: new THREE.Scene(),
+        renderer: createRenderer(),
+        camera: createCamera(),
+        raycaster: new THREE.Raycaster(),
+        jsonLoader: new THREE.JSONLoader(),
         models: {},
         meshes: function() {
             var meshes = [];
@@ -104,7 +102,7 @@ function App(scene, renderer, camera, raycaster) {
                 );
                 mesh.name = modelName;
 
-                that._scene.add(mesh);
+                that.scene.add(mesh);
                 var model = {
                     modelName: modelName,
                     mesh: mesh,
@@ -117,7 +115,7 @@ function App(scene, renderer, camera, raycaster) {
                 that.models[modelName] = model;
             }
 
-            this._jsonLoader.load(url, addModelToScene);
+            this.jsonLoader.load(url, addModelToScene);
         },
 
         get: function(modelName) {
@@ -144,50 +142,67 @@ function App(scene, renderer, camera, raycaster) {
                     model.animate(model.mesh, this);
                 }
             }
-        }
+        },
+
+        onClick: function(event) {
+            event.preventDefault();
+
+            var clickPosition = relativeMousePosition(event);
+            var x = 2 * clickPosition.x / app.renderer.domElement.width - 1;
+            var y = -2 * clickPosition.y / app.renderer.domElement.height + 1;
+            var vector = new THREE.Vector3();
+            vector.set(x, y, 0.5);
+
+            vector.unproject(app.camera);
+
+            app.raycaster.ray.set(
+                app.camera.position,
+                vector.sub(app.camera.position).normalize()
+            );
+
+            var intersects = app.raycaster.intersectObjects(app.meshes());
+
+            if (intersects.length > 0) {
+                var modelName = intersects[0].object.name;
+                app.get(intersects[0].object.name).onClick(event, modelName, app);
+            }
+        },
+
+        run: function() {
+            render();
+        },
     };
 
-    app.onClick = function(event) {
-        event.preventDefault();
+    $(app.renderer.domElement).on('click', app.onClick);
 
-        var clickPosition = relativeMousePosition(event);
-        var x = 2 * clickPosition.x / renderer.domElement.width - 1;
-        var y = -2 * clickPosition.y / renderer.domElement.height + 1;
-        var vector = new THREE.Vector3();
-        vector.set(x, y, 0.5);
+    app.light = createLight(app.scene);
+    app.ambientLight = createAmbientLight(app.scene);
 
-        vector.unproject(app._camera);
+    var render = function() {
+        // TODO: write it like app.render...
+        // TODO: ensure requestAnimationFrame exists:
+        // http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
+        // http://creativejs.com/resources/requestanimationframe/
+        // https://gist.github.com/paulirish/1579671
+        requestAnimationFrame(render);
 
-        app._raycaster.ray.set(
-            camera.position, vector.sub(camera.position).normalize());
+        app.animate();
 
-        var intersects = app._raycaster.intersectObjects(app.meshes());
-
-        if (intersects.length > 0) {
-            var modelName = intersects[0].object.name;
-            app.get(intersects[0].object.name).onClick(event, modelName, app);
-        }
+        app.renderer.render(app.scene, app.camera);
     };
-
-    $(renderer.domElement).on('click', app.onClick);
 
     return app;
 }
 
 $(document).ready(function() {
-    var renderer = createRenderer();
-    var scene = new THREE.Scene();
-    var camera = createCamera();
-    var raycaster = new THREE.Raycaster();
-    createAmbientLight(scene);
-    createLight(scene);
+    var app = App();
 
-    var app = App(scene, renderer, camera, raycaster);
     app.load(
         '../static/models/v1.json',
         'hanger',
         {position: {x: 3, y: 1, z: 0}}
     );
+
     app.load(
         '../static/models/v1.json',
         'hanger2',
@@ -203,17 +218,5 @@ $(document).ready(function() {
         }
     );
 
-    function render() {
-        // TODO: ensure requestAnimationFrame exists:
-        // http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
-        // http://creativejs.com/resources/requestanimationframe/
-        // https://gist.github.com/paulirish/1579671
-        requestAnimationFrame(render);
-
-        app.animate();
-
-        renderer.render(scene, camera);
-    }
-
-    render();
+    app.run();
 });
