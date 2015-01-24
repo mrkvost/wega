@@ -49,15 +49,17 @@ function createLight(scene) {
 }
 
 function hangerAnimate(model, app) {
-    var fps = 35;
-    var T = 2 * fps;
-    var l = 0.22;
-    var omega = 2 * Math.PI / T;    // Math.sqrt(g/l) / 100;
+    model.time += 4*Math.PI/360;
 
-    var ym = l * Math.sqrt(2) / 2;  // it's the same as xm...
-    model.mesh.position.y += ym * Math.sin(app.tick * omega);
-    model.mesh.position.x += ym * Math.sin(0.5*app.tick * omega + Math.PI/2);
-    model.mesh.rotation.z = Math.sin(0.5 * app.tick * omega);
+    model.mesh.rotation.z = model.amplitude * (-Math.sin((1/2)*Math.PI*model.time));
+    model.amplitude = (Math.PI / 4) * Math.exp(-1/2*model.time);   //(1/800 * model.time);
+
+    if (model.amplitude <= 0.002) {
+        model.time = 0;
+        model.mesh.rotation.z = 0;
+        model.animates = false;
+        model.amplitude = Math.PI/4;
+    }
 }
 
 function App() {
@@ -67,6 +69,7 @@ function App() {
         // scale: {x: 2.5, y: 2.5, z: 2.5},
         rotation: {x: 0, y: 0, z: 0},
         animates: false,
+        amplitude: Math.PI / 4,
         animate: function(model, app) {},
         onLoad: function(mesh, app) {},
         onMove: function(event, modelName, app) {
@@ -127,9 +130,12 @@ function App() {
                     modelName: modelName,
                     mesh: mesh,
                     animates: initial.animates,
+                    amplitude: initial.amplitude,
+                    time: 0,
                     animate: initial.animate,
                     onClick: initial.onClick,
                     onMove: initial.onMove,
+                    initial_position: initial.position,
                 }
 
                 initial.onLoad(mesh, that);
@@ -227,10 +233,10 @@ $(document).ready(function() {
 
     for (var i = 0; i < 10; i++) {
         app.load(
-            '../static/models/v2.json',
+            '../static/models/v3.json',
             'hanger' + i,
             {
-                position: {x: -7+i, y: -4+i, z: -9-i},
+                position: {x: -7+i, y: +1+i, z: -9-i},
                 rotation: {x: 0, y: 0, z: 0},
                 scale: {x: 1, y: 1, z: 1},
                 animate: hangerAnimate,
@@ -240,3 +246,4 @@ $(document).ready(function() {
 
     app.run();
 });
+
