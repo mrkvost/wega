@@ -253,12 +253,13 @@ html, body {
 #threejs #canvas-container {
   width: 95%;
   margin: auto;
-  padding-bottom: 1%;
+  padding: 0;
   border: 4px solid #D87F40;
 }
 
 #threejs #canvas {
   width: 100%;
+  padding: 0;
 }
 
 /* ~~~ ~~ ~~ ~~ ~~ ~~  WebGL x3dom  ~~ ~~ ~~ ~~ ~~ ~~~ */

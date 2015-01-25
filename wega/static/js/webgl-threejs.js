@@ -1,3 +1,37 @@
+function drawSprite(scene, point) {
+    var particleMaterial = new THREE.SpriteMaterial({
+        color: 0xEE9955,
+        program: function (context) {
+            context.beginPath();
+            context.arc(0, 0, 0.01, 0, Math.PI * 2, true);
+            context.fill();
+        },
+    });
+
+    var particle = new THREE.Sprite(particleMaterial);
+    particle.position.copy(point);
+    particle.scale.x = particle.scale.y = 0.1;
+    scene.add(particle);
+}
+
+function getIntersection(app, mousePosition) {
+    var $element = $(app.renderer.domElement);
+    var x = 2 * mousePosition.x / $element.innerWidth() - 1;
+    var y = -2 * mousePosition.y / $element.innerHeight() + 1;
+    var vector = new THREE.Vector3();
+    vector.set(x, y, 0.1);
+
+    vector.unproject(app.camera);
+
+    app.raycaster.ray.set(
+        app.camera.position,
+        vector.sub(app.camera.position).normalize()
+    );
+
+    var intersects = app.raycaster.intersectObjects(app.meshes());
+    return intersects;
+}
+
 function relativeMousePosition(event) {
     var $element = $(event.target);
     var posX = $element.offset().left;
@@ -66,7 +100,6 @@ function App() {
     var _DEFAULTS = {
         position: {x: 0, y: 0, z: 0},
         scale: {x: 1, y: 1, z: 1},
-        // scale: {x: 2.5, y: 2.5, z: 2.5},
         rotation: {x: 0, y: 0, z: 0},
         animates: false,
         amplitude: Math.PI / 4,
@@ -74,10 +107,7 @@ function App() {
         onLoad: function(mesh, app) {},
         onMove: function(event, modelName, app) {
             // console.log(' ===> moved:', modelName);
-            var model = app.get(modelName);
-            model.animates = true;
-            // hangerAnimate(app.get(modelName), app);
-
+            app.get(modelName).animates = true;
         },
         onClick: function(event, modelName, app) {
             // console.log(' ===> clicked:', modelName);
@@ -85,7 +115,7 @@ function App() {
     }
 
     var app = {
-        tick: 0,
+        drawIntersection: false,
         scene: new THREE.Scene(),
         renderer: createRenderer(),
         camera: createCamera(),
@@ -168,31 +198,22 @@ function App() {
                     model.animate(model, this);
                 }
             }
-            ++this.tick;
         },
 
         onMouseEvent: function(event) {
             event.preventDefault();
 
             var mousePosition = relativeMousePosition(event);
-            var x = 2 * mousePosition.x / app.renderer.domElement.width - 1;
-            var y = -2 * mousePosition.y / app.renderer.domElement.height + 1;
-            var vector = new THREE.Vector3();
-            vector.set(x, y, 0.5);
-
-            vector.unproject(app.camera);
-
-            app.raycaster.ray.set(
-                app.camera.position,
-                vector.sub(app.camera.position).normalize()
-            );
-
-            var intersects = app.raycaster.intersectObjects(app.meshes());
+            var intersects = getIntersection(app, mousePosition);
 
             if (intersects.length > 0) {
+                if (app.drawIntersection) {
+                    drawSprite(app.scene, intersects[0].point);
+                }
+
                 var modelName = intersects[0].object.name;
                 var model = app.get(intersects[0].object.name);
-                console.log(modelName);
+
                 if (event.type == 'mousemove') {
                     model.onMove(event, modelName, app);
                 }
@@ -231,18 +252,48 @@ function App() {
 $(document).ready(function() {
     var app = App();
 
-    for (var i = 0; i < 10; i++) {
-        app.load(
-            '../static/models/v3.json',
-            'hanger' + i,
-            {
-                position: {x: -7+i, y: +1+i, z: -9-i},
-                rotation: {x: 0, y: 0, z: 0},
-                scale: {x: 1, y: 1, z: 1},
-                animate: hangerAnimate,
-            }
-        );
-    }
+    var rotation = {
+        x: Math.PI/4,
+        y: Math.PI/16-3*Math.PI/8, // -Math.PI/8,
+        z: 0,
+    };
+
+    var position = {
+        x: -0.112,
+        y: +0.155,
+        z: -0.981,
+    };
+    app.load(
+        '../static/models/bar.json',
+        'bar',
+        {
+            position: position,
+            rotation: rotation,
+            scale: {x: 1, y: 1, z: 20},
+        }
+    );
+    app.load(
+        '../static/models/v3.json',
+        'hanger',
+        {
+            position: position,
+            rotation: rotation,
+            scale: {x: 1, y: 1, z: 1},
+            animate: hangerAnimate,
+        }
+    );
+    //for (var i = 0; i < 10; i++) {
+    //    app.load(
+    //        '../static/models/v3.json',
+    //        'hanger' + i,
+    //        {
+    //            position: {x: -7+i, y: +1+i, z: -9-i},
+    //            rotation: rotation,
+    //            scale: {x: 1, y: 1, z: 1},
+    //            animate: hangerAnimate,
+    //        }
+    //    );
+    //}
 
     app.run();
 });
