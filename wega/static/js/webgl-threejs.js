@@ -1,3 +1,57 @@
+function rotateByX(angle, position) {
+    var s = Math.sin(angle);
+    var c = Math.cos(angle);
+    return {
+        x: position.x,
+        y: position.y * c - position.z * s,
+        z: position.y * s + position.z * c,
+    };
+}
+
+function rotateByY(angle, position) {
+    var s = Math.sin(angle);
+    var c = Math.cos(angle);
+    return {
+        x: position.x * c + position.z * s,
+        y: position.y,
+        z: -position.x * s + position.z * c,
+    };
+}
+
+function rotateByZ(angle, position) {
+    var s = Math.sin(angle);
+    var c = Math.cos(angle);
+    return {
+        x: position.x * c - position.y * s,
+        y: position.x * s + position.y * c,
+        z: position.z,
+    };
+}
+
+function rotate(rotation, position) {
+    return rotateByX(
+        rotation.x,
+        rotateByY(
+            rotation.y,
+            rotateByZ(
+                rotation.z,
+                position
+            )
+        )
+    );
+}
+
+function create_new_position(rotation, position, increment_vector) {
+    var rotated_increment = rotate(rotation, increment_vector);
+    var new_position = {
+        x: position.x + rotated_increment.x,
+        y: position.y + rotated_increment.y,
+        z: position.z + rotated_increment.z,
+    };
+
+    return new_position;
+}
+
 function drawSprite(scene, point) {
     var particleMaterial = new THREE.SpriteMaterial({
         color: 0xEE9955,
@@ -88,7 +142,7 @@ function hangerAnimate(model, app) {
     model.mesh.rotation.z = model.amplitude * (-Math.sin((1/2)*Math.PI*model.time));
     model.amplitude = (Math.PI / 4) * Math.exp(-1/2*model.time);   //(1/800 * model.time);
 
-    if (model.amplitude <= 0.002) {
+    if (model.amplitude <= 0.007) { // zazracna konstanta... :)
         model.time = 0;
         model.mesh.rotation.z = 0;
         model.animates = false;
@@ -252,48 +306,44 @@ function App() {
 $(document).ready(function() {
     var app = App();
 
+    var position = {x: 0, y: 0, z: -12,};
     var rotation = {
         x: Math.PI/4,
-        y: Math.PI/16-3*Math.PI/8, // -Math.PI/8,
+        y: Math.PI/16-3*Math.PI/8,
         z: 0,
     };
 
-    var position = {
-        x: -0.112,
-        y: +0.155,
-        z: -0.981,
-    };
     app.load(
         '../static/models/bar.json',
         'bar',
         {
             position: position,
             rotation: rotation,
-            scale: {x: 1, y: 1, z: 20},
+            scale: {x: 1, y: 1, z: 21},
         }
     );
-    app.load(
-        '../static/models/v3.json',
-        'hanger',
-        {
-            position: position,
-            rotation: rotation,
-            scale: {x: 1, y: 1, z: 1},
-            animate: hangerAnimate,
-        }
-    );
-    //for (var i = 0; i < 10; i++) {
-    //    app.load(
-    //        '../static/models/v3.json',
-    //        'hanger' + i,
-    //        {
-    //            position: {x: -7+i, y: +1+i, z: -9-i},
-    //            rotation: rotation,
-    //            scale: {x: 1, y: 1, z: 1},
-    //            animate: hangerAnimate,
-    //        }
-    //    );
-    //}
+
+    var new_position;
+    var sgn = -1;
+    for (var i = 0; i < 15; i++) {
+        new_position = create_new_position(
+            rotation,
+            position,
+            {x: 0, y: 0, z: sgn*Math.floor((1+i)/2)*2}
+        );
+
+        app.load(
+            '../static/models/v3.json',
+            'hanger' + i,
+            {
+                position: new_position,
+                rotation: rotation,
+                scale: {x: 1, y: 1, z: 1},
+                animate: hangerAnimate,
+            }
+        );
+        sgn = sgn * -1;
+    }
 
     app.run();
 });
