@@ -11,6 +11,8 @@ IMAGE_PATH = 'img/products'
 
 
 def image_url(image_name):
+    if not image_name:
+        return ''
     path = os.path.join(IMAGE_PATH, image_name)
     return url_for('static', filename=path)
 
