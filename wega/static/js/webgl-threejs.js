@@ -155,6 +155,7 @@ function App() {
         position: {x: 0, y: 0, z: 0},
         scale: {x: 1, y: 1, z: 1},
         rotation: {x: 0, y: 0, z: 0},
+        material: undefined,
         animates: false,
         amplitude: Math.PI / 4,
         animate: function(model, app) {},
@@ -189,7 +190,11 @@ function App() {
             var initial = _.defaults({}, initial, _DEFAULTS);
 
             var addModelToScene = function(geometry, materials) {
-                var material = new THREE.MeshFaceMaterial(materials);
+                if (initial.material) {
+                    var material = initial.material;
+                } else {
+                    var material = new THREE.MeshFaceMaterial(materials);
+                }
                 var mesh = new THREE.Mesh(geometry, material);
 
                 mesh.position.set(
@@ -282,6 +287,8 @@ function App() {
         },
     };
 
+    // na toto treba dalsiu kniznicu...
+    // var controls = new THREE.Controls(app.camera, app.renderer.domElement);
     $(app.renderer.domElement).on('click', app.onMouseEvent);
     $(app.renderer.domElement).on('mousemove', app.onMouseEvent);
 
@@ -306,26 +313,33 @@ function App() {
 $(document).ready(function() {
     var app = App();
 
-    var position = {x: 0, y: 0, z: -12,};
+    var position = {x: 0, y: 8, z: -12,};
     var rotation = {
         x: Math.PI/4,
-        y: Math.PI/16-3*Math.PI/8,
+        y: Math.PI/16-4*Math.PI/9,
         z: 0,
     };
 
+    var material_1 = new THREE.MeshPhongMaterial({
+        map: THREE.ImageUtils.loadTexture('../static/models/Metal_Texture_PLUS_Metal_Grid.jpg')
+    });
     app.load(
-        '../static/models/bar.json',
+        '../static/models/bar3.json',
         'bar',
         {
             position: position,
             rotation: rotation,
+            material: material_1,
             scale: {x: 1, y: 1, z: 21},
         }
     );
 
+    // var material_2 = new THREE.MeshPhongMaterial({
+    //     map: THREE.ImageUtils.loadTexture('../static/models/orange-micro-fiber-cloth-fabric-texture.jpg')
+    // });
     var new_position;
-    var sgn = -1;
-    for (var i = 0; i < 15; i++) {
+    var sgn = 1;
+    for (var i = 0; i < 16; i++) {
         new_position = create_new_position(
             rotation,
             position,
@@ -338,6 +352,7 @@ $(document).ready(function() {
             {
                 position: new_position,
                 rotation: rotation,
+                //material: material_2,
                 scale: {x: 1, y: 1, z: 1},
                 animate: hangerAnimate,
             }
@@ -347,4 +362,3 @@ $(document).ready(function() {
 
     app.run();
 });
-
