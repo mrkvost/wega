@@ -1,5 +1,32 @@
-from wega.db.models import Product
+from wega.db.models import Product, Fiber, Composition
 
+
+EXAMPLE_FIBERS = [
+    Fiber(**{
+        'name': 'Other',
+        'description': 'Other fibers is used with low quantity of fibers.',
+    }),
+    Fiber(**{
+        'name': 'Polyester',
+        'description': 'Polyethylene terephthalate (PET / PETE) is the thermoplastic polymer resin of the polyester family used in synthetic fibers.',
+    }),
+    Fiber(**{
+        'name': 'Wool',
+        'description': 'Textile fiber obtained from sheep and certain other animals, including cashmere from goats, mohair from goats, qiviut from muskoxen, angora from rabbits, and other types of wool from camelids.',
+    }),
+    Fiber(**{
+        'name': 'Acrylic',
+        'description': 'Acrylic fibers are synthetic fibers made from a polymer (polyacrylonitrile) with an average molecular weight of ~100,000, about 1900 monomer units. Acrylic is lightweight, soft, and warm, with a wool-like feel.',
+    }),
+    Fiber(**{
+        'name': 'Cotton',
+        'description': 'Cotton is a soft, fluffy staple fiber that grows in a boll, or protective capsule, around the seeds of cotton plants of the genus Gossypium in the family of Malvaceae. The fiber is almost pure cellulose. The fiber is most often spun into yarn or thread and used to make a soft, breathable textile.',
+    }),
+    Fiber(**{
+        'name': 'Nylon',
+        'description': 'Nylon is a thermoplastic, silky material. It is a generic designation for a family of synthetic polymers known generically as aliphatic polyamides.',
+    }),
+]
 
 EXAMPLE_PRODUCTS = [
     Product(**{
@@ -117,8 +144,143 @@ EXAMPLE_PRODUCTS = [
     }),
 ]
 
+EXAMPLE_COMPOSITIONS = [
+    {
+        'product_name': 'Khaki Coat',
+        'fibers': [{
+                'fiber_name': 'Wool',
+                'percentage': 61,
+            }, {
+                'fiber_name': 'Polyester',
+                'percentage': 28,
+            }, {
+                'fiber_name': 'Acrylic',
+                'percentage': 6,
+            }, {
+                'fiber_name': 'Other',
+                'percentage': 5,
+            },
+        ],
+    }, {
+        'product_name': 'Waistcoat jacket',
+        'fibers': [{
+                'fiber_name': 'Wool',
+                'percentage': 55,
+            }, {
+                'fiber_name': 'Polyester',
+                'percentage': 45,
+            },
+        ],
+    }, {
+        'product_name': 'Compact Nylon Jacket',
+        'fibers': [{
+                'fiber_name': 'Polyester',
+                'percentage': 100,
+            },
+        ],
+    }, {
+        'product_name': 'Wadded Jacket',
+        'fibers': [{
+                'fiber_name': 'Polyester',
+                'percentage': 100,
+            },
+        ],
+    }, {
+        'product_name': 'Pea Coat',
+        'fibers': [{
+                'fiber_name': 'Wool',
+                'percentage': 60,
+            }, {
+                'fiber_name': 'Polyester',
+                'percentage': 31,
+            }, {
+                'fiber_name': 'Other',
+                'percentage': 9,
+            },
+        ],
+    }, {
+        'product_name': 'Single Breasted Mac',
+        'fibers': [{
+                'fiber_name': 'Cotton',
+                'percentage': 63,
+            }, {
+                'fiber_name': 'Polyester',
+                'percentage': 28,
+            }, {
+                'fiber_name': 'Nylon',
+                'percentage': 9,
+            },
+        ],
+    }, {
+        'product_name': 'Tapue Covert Coat',
+        'fibers': [{
+                'fiber_name': 'Wool',
+                'percentage': 100,
+            },
+        ],
+    }, {
+        'product_name': 'Fleeced Lined Anorak',
+        'fibers': [{
+                'fiber_name': 'Polyester',
+                'percentage': 65,
+            }, {
+                'fiber_name': 'Cotton',
+                'percentage': 35,
+            },
+        ],
+    }, {
+        'product_name': 'Coat',
+        'fibers': [{
+                'fiber_name': 'Wool',
+                'percentage': 42,
+            }, {
+                'fiber_name': 'Cotton',
+                'percentage': 25,
+            }, {
+                'fiber_name': 'Polyester',
+                'percentage': 12,
+            }, {
+                'fiber_name': 'Acrylic',
+                'percentage': 9,
+            }, {
+                'fiber_name': 'Nylon',
+                'percentage': 7,
+            }, {
+                'fiber_name': 'Other',
+                'percentage': 5,
+            },
+        ],
+    },
+]
 
-def fill_products(db):
+
+def _fill_products(db):
     for product in EXAMPLE_PRODUCTS:
         db.session.add(product)
     db.session.commit()
+
+
+def _fill_fibers(db):
+    for fiber in EXAMPLE_FIBERS:
+        db.session.add(fiber)
+    db.session.commit()
+
+
+def _fill_compositions(db):
+    for item in EXAMPLE_COMPOSITIONS:
+        product = Product.query.filter_by(name=item['product_name']).first()
+        for data in item['fibers']:
+            fiber = Fiber.query.filter_by(name=data['fiber_name']).first()
+            composition = Composition(**{
+                'product_id': product.id,
+                'fiber_id': fiber.id,
+                'percentage': data['percentage'],
+            })
+            db.session.add(composition)
+    db.session.commit()
+
+
+def fill_db(db):
+    _fill_products(db)
+    _fill_fibers(db)
+    _fill_compositions(db)

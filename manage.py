@@ -20,7 +20,7 @@ from wega.app import app
 from wega.db.core import db
 from wega.db.models import Product
 
-from example.fill_db import fill_products
+from example.fill_db import fill_db
 
 
 class Recreate(Command):
@@ -31,7 +31,7 @@ class Recreate(Command):
         db.drop_all()
         db.create_all()
 
-        fill_products(db)
+        fill_db(db)
 
 
 manager = Manager(lambda: app)
