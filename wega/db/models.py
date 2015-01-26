@@ -23,7 +23,7 @@ class Product(Base):
     price = db.Column(db.Float(precision=2), index=True, nullable=False)
     image_name = db.Column(db.String(255), index=True)
     description = db.Column(db.String(1000))
-    # fibers = db.relationship('Composition')
+    composition = db.relationship('Composition')
 
 
 class Fiber(Base):

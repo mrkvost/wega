@@ -49,8 +49,9 @@
       <div class="composition col-sm-3 col-md-4 col-lg-2">
         <h3>Composition</h3>
         <ul class="composition-list">
-          <li>55% wool</li>
-          <li>45% polyester</li>
+          {% for composition in product.composition -%}
+            <li>{{ composition.percentage }}% {{ composition.fiber.name }}</li>
+          {%- endfor %}
         </ul>
       </div>
 
