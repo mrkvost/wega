@@ -261,6 +261,23 @@ html, body {
   }
 }
 
+/* ~~~ ~~ ~~ ~~ ~~ ~~  Product Detail ~~ ~~ ~~ ~~ ~~ ~~~ */
+#product-detail h2.caption{
+  padding: 0px;
+  color: #D87F40;
+}
+
+#product-detail h3{
+  color: #D87F40;
+}
+
+#product-detail .description {
+  color: #FFF;
+}
+
+#product-detail {
+}
+
 /* ~~~ ~~ ~~ ~~ ~~ ~~  About  ~~ ~~ ~~ ~~ ~~ ~~~ */
 #about p {
   color: #FFF;
