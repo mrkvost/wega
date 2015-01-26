@@ -7,66 +7,82 @@
   {{ super() }}
   <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-2.1.3.min.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='js/holder.min.js') }}"></script>
-  <script>
-    $(document).ready(function() {
-        $('.btn.back').click(function(event) {
-            parent.history.back();
-            return false;
-        });
-    });
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/product_detail.js') }}"></script>
+  <script type="text/javascript">
+    var $OPTS = {
+        'style': 'background-color: red',
+    };
+    var $COMPOSITION_DATA = [[
+        {
+            type: 'string',
+        }, {
+            type: 'number',
+        }, {
+            type: 'string',
+            role: 'tooltip',
+            //p: {'html': true},
+        }],
+      {% for composition in product.composition -%}
+        ['{{ composition.fiber.name }}', {{ composition.percentage }}, '{{ composition.fiber.description }}'],
+      {% endfor %}
+    ];
+
+    google.load('visualization', '1.0', {'packages':['corechart']});
+    google.setOnLoadCallback(drawChart);
   </script>
 {% endblock %}
 
 {% block content %}
-  <a href="#" class="btn btn-default back" role="button">Back</a>
+<!--<a href="#" class="btn btn-default back" role="button">Back</a>-->
   <div class="container-fluid">
+    <h2 class="caption">{{ product.name }}</h2>
     <div class="row">
-      <div class="img col-sm-6 col-md-4 col-lg-3">
-        <h2 class="caption">{{ product.name }}</h2>
+      <div class="img col-sm-5 col-md-4 col-lg-3">
         <img data-src="{{ image_placeholder_small }}" src="{{ image_url(product.image_name) }}" alt="{{ product.name }}">
+        <div class="price">
+          <h4>{{ product.price }}&nbsp;&euro;</h3>
+        </div>
       </div>
 
-      <div class="sizes col-sm-3 col-md-2 col-lg-1">
-        <h3>Sizes</h3>
-        <ul class="size-list">
-          <li>XS</li>
-          <li>M</li>
-          <li>XXL</li>
-        </ul>
-      </div>
-
-      <div class="colors col-sm-3 col-md-2 col-lg-1">
-        <h3>Colors</h3>
-        <ul class="color-list">
-          <li>Green</li>
-          <li>Khaki</li>
-          <li>Red</li>
-        </ul>
-      </div>
-
-      <div class="clearfix visible-sm-block"></div>
-
-      <div class="composition col-sm-3 col-md-4 col-lg-2">
-        <h3>Composition</h3>
-        <ul class="composition-list">
-          {% for composition in product.composition -%}
-            <li>{{ composition.percentage }}% {{ composition.fiber.name }}</li>
-          {%- endfor %}
-        </ul>
-      </div>
-
-      <div class="clearfix visible-md-block"></div>
-
-      <div class="description col-sm-6 col-md-4 col-lg-3">
-        <h3>Description</h3>
+      <div class="description col-sm-7 col-md-8 col-lg-9">
+        <h4>Description</h3>
         <div class="description">{{ product.description }}</div>
+
+        <div class="row">
+          <div class="sizes col-sm-4 col-md-6 col-lg-6">
+            <h4>Sizes</h3>
+            <ul class="size-list">
+              <li>XS</li>
+              <li>M</li>
+              <li>XXL</li>
+            </ul>
+          </div>
+
+          <div class="colors col-sm-8 col-md-6 col-lg-6">
+            <h4>Colors</h3>
+            <ul class="color-list">
+              <li><span class="color-sample bg-green"></span>Green</li>
+              <li><span class="color-sample bg-khaki"></span>Khaki</li>
+              <li><span class="color-sample bg-red"></span>Red</li>
+              <li><span class="color-sample bg-blue"></span>Blue</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="clearfix visible-lg-block visible-sm-block"></div>
+
+        <div class="composition col-sm-6 col-md-5 col-lg-4">
+          <h4>Composition</h3>
+          <ul class="composition-list hidden-xs hidden-sm hidden-md hidden-lg">
+            {% for composition in product.composition -%}
+              <li>{{ composition.percentage }}% {{ composition.fiber.name }}</li>
+            {%- endfor %}
+          </ul>
+          <div class="composition-chart"></div>
+        </div>
       </div>
 
-      <div class="price col-sm-3 col-md-4 col-lg-2">
-        <h3>{{ product.price }}&nbsp;&euro;</h3>
-      </div>
-
-      <div class="clearfix visible-sm-block visible-lg-block"></div>
     </div>
   </div>
 {% endblock %}

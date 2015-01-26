@@ -267,15 +267,72 @@ html, body {
   color: #D87F40;
 }
 
-#product-detail h3{
+#product-detail .img {
+  text-align: center;
+}
+
+#product-detail h4{
   color: #D87F40;
+}
+
+#product-detail div[dir="ltr"] {
+  margin: 0;
 }
 
 #product-detail .description {
   color: #FFF;
+  text-align: justify;
 }
 
-#product-detail {
+#product-detail .color-list,
+#product-detail .composition-list,
+#product-detail .size-list {
+  color: #FFF;
+  list-style: none;
+  padding: 0;
+}
+
+#product-detail .size-list li,
+#product-detail .color-list li {
+  display: inline-block;
+  border: solid 1px #D87F40;
+  padding: 2px 5px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+#product-detail .size-list li:focus,
+#product-detail .size-list li:hover,
+#product-detail .color-list li:focus,
+#product-detail .color-list li:hover {
+  box-shadow: 0px 0px 10px 0px #D87F40;
+}
+
+#product-detail .color-list li .color-sample {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+}
+
+#product-detail .bg-green {
+  background-color: green;
+}
+
+#product-detail .bg-red {
+  background-color: red;
+}
+
+#product-detail .bg-blue {
+  background-color: blue;
+}
+
+#product-detail .bg-khaki {
+  background-color: #F0E68C;
+}
+
+#product-detail .composition {
+  padding: 0;
 }
 
 /* ~~~ ~~ ~~ ~~ ~~ ~~  About  ~~ ~~ ~~ ~~ ~~ ~~~ */
