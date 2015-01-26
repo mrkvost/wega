@@ -36,7 +36,7 @@
     <h2 class="caption">{{ product.name }}</h2>
     <div class="row">
       <div class="img col-sm-5 col-md-4 col-lg-3">
-        <img data-src="{{ image_placeholder_small }}" src="{{ image_url(product.image_name) }}" alt="{{ product.name }}">
+          <img data-src="{{ image_placeholder_small }}" {% if product.image_name %}src="{{ image_url(product.image_name) }}"{% endif %} alt="{{ product.name }}">
         <div class="price">
           <h4>{{ product.price }}&nbsp;&euro;</h3>
         </div>
