@@ -6,7 +6,7 @@ from wega.db.core import db
 from wega.db.models import Product
 
 
-IMAGE_PLACEHOLDER_SMALL = 'holder.js/300x300/#333:#fff/text:missing image'
+IMAGE_PLACEHOLDER_SMALL = 'holder.js/200x300/#333:#fff/text:missing image'
 IMAGE_PATH = 'img/products'
 
 

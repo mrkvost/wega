@@ -11,7 +11,8 @@ function drawChart() {
         height: 130,
         is3D: true,
         backgroundColor: '#000',
-        pieSliceText: 'label',
+        // pieSliceText: 'label',
+        pieSliceText: 'percentage',
         pieSliceTextStyle: {
             color: 'black',
             fontSize: 12.0,
