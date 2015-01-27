@@ -1,4 +1,6 @@
-from wega.db.models import Product, Fiber, Composition
+from wega.db.models import (
+    Fiber, Product, Composition, User, Order, OrderItem,
+)
 
 
 EXAMPLE_FIBERS = [
@@ -27,6 +29,13 @@ EXAMPLE_FIBERS = [
         'description': 'Nylon is a thermoplastic, silky material. It is a generic designation for a family of synthetic polymers known generically as aliphatic polyamides.',
     }),
 ]
+
+
+def _fill_fibers(db):
+    for fiber in EXAMPLE_FIBERS:
+        db.session.add(fiber)
+    db.session.commit()
+
 
 EXAMPLE_PRODUCTS = [
     Product(**{
@@ -144,6 +153,13 @@ EXAMPLE_PRODUCTS = [
     }),
 ]
 
+
+def _fill_products(db):
+    for product in EXAMPLE_PRODUCTS:
+        db.session.add(product)
+    db.session.commit()
+
+
 EXAMPLE_COMPOSITIONS = [
     {
         'product_name': 'Khaki Coat',
@@ -254,18 +270,6 @@ EXAMPLE_COMPOSITIONS = [
 ]
 
 
-def _fill_products(db):
-    for product in EXAMPLE_PRODUCTS:
-        db.session.add(product)
-    db.session.commit()
-
-
-def _fill_fibers(db):
-    for fiber in EXAMPLE_FIBERS:
-        db.session.add(fiber)
-    db.session.commit()
-
-
 def _fill_compositions(db):
     for item in EXAMPLE_COMPOSITIONS:
         product = Product.query.filter_by(name=item['product_name']).first()
@@ -280,7 +284,78 @@ def _fill_compositions(db):
     db.session.commit()
 
 
+EXAMPLE_USERS = [
+    User(**{
+        'username': 'admin',
+        'password': 'admin',
+        'admin': True,
+    }),
+    User(**{
+        'username': 'user',
+        'password': 'pass',
+        'admin': False,
+    }),
+]
+
+
+def _fill_users(db):
+    for user in EXAMPLE_USERS:
+        db.session.add(user)
+    db.session.commit()
+
+
+EXAMPLE_ORDERS = [
+    {'username': 'admin',},
+    {'username': 'user',},
+]
+
+
+def _fill_orders(db):
+    for item in EXAMPLE_ORDERS:
+        user = User.query.filter_by(username=item['username']).first()
+        order = Order(**{'user_id': user.id,})
+        db.session.add(order)
+    db.session.commit()
+
+
+EXAMPLE_ORDER_ITEMS = [
+    {
+        'username': 'admin',
+        'items': [
+            {'product_name': 'Pea Coat', 'number': 2},
+            {'product_name': 'Khaki Coat', 'number': 1},
+            {'product_name': 'Waistcoat jacket', 'number': 1},
+            {'product_name': 'Single Breasted Mac', 'number': 3},
+        ],
+    }, {
+        'username': 'user',
+        'items': [
+            {'product_name': 'Khaki Coat', 'number': 1},
+            {'product_name': 'Single Breasted Mac', 'number': 4},
+        ],
+    },
+]
+
+
+def _fill_order_items(db):
+    for data in EXAMPLE_ORDER_ITEMS:
+        order = Order.query.join(User, aliased=True).\
+            filter_by(username=data['username']).first()
+        for item in data['items']:
+            product = Product.query.filter_by(name=item['product_name']).first()
+            order_item = OrderItem(**{
+                'number': item['number'],
+                'order_id': order.id,
+                'product_id': product.id,
+            })
+            db.session.add(order_item)
+    db.session.commit()
+
+
 def fill_db(db):
     _fill_products(db)
     _fill_fibers(db)
     _fill_compositions(db)
+    _fill_users(db)
+    _fill_orders(db)
+    _fill_order_items(db)
