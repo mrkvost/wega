@@ -384,3 +384,95 @@ html, body {
 #x3dom x3d {
   border: 4px solid #D87F40;
 }
+
+/* ~~~ ~~ ~~ ~~ ~~ ~~  Order  ~~ ~~ ~~ ~~ ~~ ~~~ */
+#order h2 {
+  color: #D87F40;
+  text-align: center;
+}
+
+#order table {
+  max-width: 600px;
+  margin: 15px auto 0 auto;
+}
+
+#order table,
+#order th,
+#order td {
+  border: 1px solid #D87F40;
+  vertical-align: middle;
+}
+
+#order tbody tr:hover td:not(.table-buttons) {
+  background-color: #3F220D;
+}
+
+#order th {
+  color: #D87F40;
+  text-align: center;
+  padding: 3px 5px;
+  font-size: 1.1em;
+}
+
+#order td {
+  color: #FFF;
+  padding: 3px 5px;
+}
+
+#order td.number {
+  text-align: center;
+}
+
+#order td.sum,
+#order td.product-price,
+#order td.total {
+  text-align: right;
+}
+
+#order th.table-buttons,
+#order td.table-buttons {
+  text-align: center;
+}
+
+#order td.table-buttons {
+  text-align: center;
+}
+
+#order td.table-buttons a.button-decrease,
+#order td.table-buttons a.button-increase,
+#order td.table-buttons a.button-remove {
+  /*background-color: #D87F40;*/
+  /*color: #600;*/
+  color: #3F220D;
+  background-color: #111;
+  padding: 3px 10px;
+  font-weight: bold;
+  text-decoration: none;
+  line-height: 1.828;
+}
+
+#order tr:hover td.table-buttons a.button-decrease,
+#order tr:hover td.table-buttons a.button-remove {
+  background-color: #500;
+  color: #D87F40;
+}
+
+#order tr:hover td.table-buttons a.button-increase {
+  background-color: #050;
+  color: #D87F40;
+}
+
+#order tr td.table-buttons a.button-decrease:hover,
+#order tr td.table-buttons a.button-remove:hover {
+  color: #500;
+  background-color: #D00;
+}
+
+#order tr td.table-buttons a.button-increase:hover {
+  color: #050;
+  background-color: #0D0;
+}
+
+#order td.total {
+  color: #D87F40;
+}

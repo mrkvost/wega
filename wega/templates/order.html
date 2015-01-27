@@ -4,5 +4,40 @@
 {% set active_page = 'order.index' %}
 
 {% block content %}
-  <h1>Order</h1>
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Product Name</th>
+        <th>Product Price</th>
+        <th>#</th>
+        <th>Total</th>
+        <th class="table-buttons">Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for item in order.items -%}
+        <tr>
+          <td class="product-name">{{ item.product.name }}</td>
+          <td class="product-price">
+            <span class="price">{{ "{0:.2f}".format(item.product.price) }}</span>&nbsp;&euro;
+          </td>
+          <td class="number">{{ item.number }}</td>
+          <td class="sum">{{ "{0:.2f}".format(item.product.price * item.number) }}&nbsp;&euro;</td>
+          <td class="table-buttons">
+            <a class="button-decrease" href="#">-</a>
+            <a class="button-increase" href="#">+</a>
+            <a class="button-remove" href="#">Remove</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+
+    <tfoot>
+      <tr>
+        <td colspan="4" class="total">{{ "{0:.2f}".format(total)}}&nbsp;&euro;</td>
+        <td class="table-buttons"></td>
+      </tr>
+    </tfoot>
+  </table>
 {% endblock %}
