@@ -462,12 +462,15 @@ html, body {
   color: #D87F40;
 }
 
+#order tr td.table-buttons a.button-decrease:focus,
+#order tr td.table-buttons a.button-remove:focus,
 #order tr td.table-buttons a.button-decrease:hover,
 #order tr td.table-buttons a.button-remove:hover {
   color: #500;
   background-color: #D00;
 }
 
+#order tr td.table-buttons a.button-increase:focus,
 #order tr td.table-buttons a.button-increase:hover {
   color: #050;
   background-color: #0D0;
