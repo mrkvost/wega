@@ -4,9 +4,72 @@
 {% set active_page = 'base.about' %}
 
 {% block content %}
-  <h1>About</h1>
+  <h1>About the project</h1>
   <br />
-  <a href="{{ url_for('webgl.threejs') }}">WebGL threejs</a>
-  <br />
-  <a href="{{ url_for('webgl.x3dom') }}">WebGL x3dom</a>
+<div class="container-fluid">
+  <div class="row">
+    <div class="card-wrapper col-sm-6 col-md-4 col-lg-3">
+      <div class="card">
+        <h3>Tema</h3>
+        <p><strong>Komercny web</strong></p>
+      </div>
+    </div>
+
+    <div class="card-wrapper col-sm-6 col-md-4 col-lg-3">
+      <div class="card logo">
+        <h3>Logo</h3>
+        <a href="{{ url_for('static', filename='img/gamatex_logo.svg') }}">Logo v plnej krase tu</a>
+      </div>
+    </div>
+
+    <div class="card-wrapper col-sm-6 col-md-4 col-lg-3">
+      <div class="card">
+        <h3>Design webu</h3>
+        <a href="{{ url_for('static', filename='other/design.pdf') }}">design.pdf</a>
+        <p>
+          Zdroje:
+          <a href="http://1hdwallpapers.com/suit_up-wallpaper.html">temny oblek</a>,
+          <a href="http://2.bp.blogspot.com/-i_FgZM0GQGA/UGq617DSsuI/AAAAAAAAAa0/gkL67d4vDME/s1600/00020h_1280x1920_1.jpg">cierna zenska</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="card-wrapper col-sm-6 col-md-4 col-lg-3">
+      <div class="card">
+        <h3>Web stranka & Mobilna verzia webu</h3>
+        <p>
+          Neuvedomil som si, ze to ma byt spustitelne bez web servera :-/.
+          Zato vsak ponukam moznost stiahnut si zdrojaky z mojho
+          <a href="https://github.com/mrkvost/wega">git-hub repa</a>.
+          Zdroj obrazkov produktov: <a href="http://www2.next.co.uk/shop/gender-men-productaffiliation-coatsandjackets-0">next.co.uk</a>.
+        </p>
+      </div>
+    </div>
+
+    <div class="card-wrapper col-sm-6 col-md-4 col-lg-3">
+      <div class="card">
+        <h3>Pokrocila internetova aplikacia (RIA)</h3>
+        <p>
+          Vybral som si grafviewer:
+          <a href="http://gamatex.me/products/1">kruhovy</a>,
+          <a href="">stlpcovy</a>,
+          <a href="">spojene body</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="card-wrapper col-sm-6 col-md-4 col-lg-3">
+      <div class="card">
+        <h3>Interaktivny 3D model na webe</h3>
+        <p>
+          Hojdajuce sa vesiaky:
+          <a class="threejs-link" href="{{ url_for('webgl.threejs') }}">WebGL threejs</a>
+          <br />
+          Len pokus, zavrhnute:
+        <a class="x3dom-link" href="{{ url_for('webgl.x3dom') }}">WebGL x3dom</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
