@@ -1,13 +1,14 @@
 function drawChart() {
+    var coefficient = 137;
     var data = google.visualization.arrayToDataTable([
         ['Size', 'Sold', { role: "style" }],
-        ['XXS', 33, '#944F1E'],
-        ['XS', 66, '#D88041'],
-        ['S', 152, '#E9B895'],
-        ['M', 220, '#F2D5C0'],
-        ['XL', 126, '#E19C6B'],
-        ['XXL', 48, '#BE6627'],
-        ['XXXL', 12, '#6A3916'],
+        ['XXS', 33 * coefficient, '#944F1E'],
+        ['XS', 66 * coefficient, '#D88041'],
+        ['S', 152 * coefficient, '#E9B895'],
+        ['M', 220 * coefficient, '#F2D5C0'],
+        ['XL', 126 * coefficient, '#E19C6B'],
+        ['XXL', 48 * coefficient, '#BE6627'],
+        ['XXXL', 12 * coefficient, '#6A3916'],
     ], false);
 
     var options = {
