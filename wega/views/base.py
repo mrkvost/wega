@@ -33,3 +33,8 @@ def login():
 @base_app.route('/sizes')
 def sizes():
     return render_template('sizes.html')
+
+
+@base_app.route('/income')
+def income():
+    return render_template('income.html')

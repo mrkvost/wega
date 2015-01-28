@@ -526,3 +526,19 @@ html, body {
   max-width: 700px;
   margin: 0 auto 15px auto;
 }
+
+/* ~~~ ~~ ~~ ~~ ~~ ~~  Income  ~~ ~~ ~~ ~~ ~~ ~~~ */
+#income h1 {
+  text-align: center;
+  color: #D87F40;
+}
+
+#income main.content * {
+  color: #D87F40;
+}
+
+#income .income-chart {
+  max-width: 700px;
+  margin: 0 auto 15px auto;
+}
+
