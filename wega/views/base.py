@@ -28,3 +28,8 @@ def login():
         # TODO: redirect, login user and create session
         return render_template('login.html', form=form)
     return render_template('login.html', form=form)
+
+
+@base_app.route('/sizes')
+def sizes():
+    return render_template('sizes.html')

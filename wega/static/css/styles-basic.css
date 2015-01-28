@@ -511,3 +511,18 @@ html, body {
   background-size: 180px 127.273px;
   background-position: right center;
 }
+
+/* ~~~ ~~ ~~ ~~ ~~ ~~  Sizes  ~~ ~~ ~~ ~~ ~~ ~~~ */
+#sizes h1 {
+  text-align: center;
+  color: #D87F40;
+}
+
+#sizes main.content * {
+  color: #D87F40;
+}
+
+#sizes .sizes-chart {
+  max-width: 700px;
+  margin: 0 auto 15px auto;
+}
